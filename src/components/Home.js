@@ -1,6 +1,8 @@
+
 import React,{ Component } from 'react';
-import { View, Text} from 'react-native';
+import { ScrollView } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
+import Item from './Item'
 export default class Home extends Component {
     static navigationOptions = {
         tabBarlabel: '首页',
@@ -10,9 +12,12 @@ export default class Home extends Component {
     };
     render() {
         return (
-            <View>
-                <Text style={{fontSize:30,textAlign:"center"}}>HomeScreen</Text>
-            </View>
+            <ScrollView>
+                <Item />
+                <Item />    
+            </ScrollView>
+
         );
     }
 }
+

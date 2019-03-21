@@ -1,5 +1,6 @@
-import axios from 'axios';
+// import axios from 'axios';
 import url from 'url';
+import { logoutAction } from '../actions/loginAction';
 const baseUrl = 'https://api.weibo.com/';
 const redirect_uri = 'https://fuguiguan.cn';
 const client_id = '3207738322';
@@ -26,27 +27,36 @@ function getUrlWithParams(path,params) {
 /*
 获取授权url
 */
+// export function getAuthURL() {
+//   let path = oauth2Url + 'authorize';
+//   return axios({
+//     method: 'get',
+//     url: path,
+//     data: {
+//       client_id: client_id,
+//       redirect_uri: redirect_uri
+//     }
+//   }).then((res) =>{
+//     return Promise.resolve(res.data)
+//   }).catch((err) =>{
+//     return Promise.reject(err)
+//   });
+// }
 export function getAuthURL() {
-  let path = oauth2Url + 'authorize';
-  return axios({
-    method: 'get',
-    url: path,
-    data: {
-      client_id: client_id,
-      redirect_uri: redirect_uri
-    }
-  }).then((res) =>{
-    return Promise.resolve(res.data)
-  }).catch((err) =>{
-    return Promise.reject(err)
-  });
+  let path = oauth2Url + "authorize"
+  return getUrlWithParams(path, {
+    client_id:client_id,
+    redirect_uri:redirect_uri,
+    forcelogin: true
+  })
 }
+
 
 /*
 获取请求access_token的code
 */
-export function getCode(state) {
-  let urlObj = url.parse(state.url,true);
+export function getCode(navState) {
+  let urlObj = url.parse(navState.url,true);
   if (urlObj.pathname === url.parse(redirect_uri).pathname) {
     return urlObj.query.code;
   }
@@ -56,39 +66,142 @@ export function getCode(state) {
 /**
  * 获取access_token
  */
-export function getAccessToken(code) {
-  let path = oauth2Url + 'access_token';
-  return axios({
-    method: 'post',
-    url: path,
-    data: {
-      client_id: client_id,
-      client_secret: client_secret,
-      grant_type: 'authorization_code',
-      code: code,
-      redirect_uri: redirect_uri
-    }
-  }).then((res) => {
-    return Promise.resolve(res.data);
-  }).catch((err) => {
-    return Promise.reject(err);
-  });
+// export function getAccessToken(code) {
+//   let path = oauth2Url + 'access_token';
+//   return axios({
+//     method: 'post',
+//     url: path,
+//     data: {
+//       client_id: client_id,
+//       client_secret: client_secret,
+//       grant_type: 'authorization_code',
+//       code: code,
+//       redirect_uri: redirect_uri
+//     }
+//   }).then((res) => {
+//     return Promise.resolve(res.data);
+//   }).catch((err) => {
+//     return Promise.reject(err);
+//   });
+// }
+
+export function access_token(code) {
+  let path = oauth2Url + 'access_token'
+  let url = getUrlWithParams(path, {
+    client_id: client_id,
+    client_secret: client_secret,
+    grant_type: 'authorization_code',
+    code: code,
+    redirect_uri: redirect_uri
+  })
+  return sendPostRequest(url, {})
 }
+
 
 /**
  * 查询用户access_token的授权相关信息，包括授权时间，过期时间和scope权限。
  */
-export function getUserTokenInfo(access_token) {
-  let path = oauth2Url + 'get_token_info';
-  return axios({
-    method: 'post',
-    url: path,
-    data: {
-      access_token: access_token
+// export function getUserTokenInfo(access_token) {
+//   let path = oauth2Url + 'get_token_info';
+//   return axios({
+//     method: 'post',
+//     url: path,
+//     data: {
+//       access_token: access_token
+//     }
+//   }).then((res) => {
+//     return Promise.resolve(res.data);
+//   }).catch((err) => {
+//     return Promise.reject(err);
+//   });
+// }
+export function get_token_info(token) {
+  let path = oauth2Url + 'get_token_info'
+  let url = getUrlWithParams(path,{
+    access_token: token
+  })
+  return sendPostRequest(url, {})
+}
+
+
+/**--------------------用户相关信息--------------------- */
+const userUrl = baseUrl + '2/users/';
+// export function getUserInfo(access_token) {
+//   let path = userUrl + 'show.json';
+//   return axios({
+//     method: 'get',
+//     url: path,
+//     data: {
+//       access_token: access_token
+//     }
+//   }).then((res) => {
+//     return Promise.resolve(res.data);
+//   }).catch((err) => {
+//     return Promise.reject(err);
+//   });
+// }
+
+export function getUserInfo(access_token) {
+  let path = userUrl + 'show.json'
+  return sendGetRequest(path,{
+    access_token
+  })
+}
+
+
+const accountUrl = baseUrl + '2/account/'
+export function getUid(access_token) {
+    let path = accountUrl + 'get_uid.json'
+    return sendGetRequest(path,{
+      access_token
+    })
+}
+
+
+
+/**
+ * -------------------  get/post 请求  -----------------------------
+ */
+
+
+function sendGetRequest(url, params, headers = null) {
+  return request(getUrlWithParams(url,params),{
+    method: 'Get',
+    headers: {
+      'Accept': 'application/json'
     }
-  }).then((res) => {
-    return Promise.resolve(res.data);
-  }).catch((err) => {
-    return Promise.reject(err);
-  });
+  })
+}
+
+function sendPostRequest(url,body,headers = null) {
+  return request(url,{
+    method: 'post',
+    headers: {
+      'Accept': 'application/json',
+      'Content': 'appliction/json'
+    },
+    body: JSON.stringify(body)
+  })
+}
+
+class APIError extends Error {
+  constructor(message,code,origin) {
+    super(message);
+    this.code = code;
+    this.origin = origin;
+  }
+}
+
+async function request(url,options) {
+  const response = await fetch(url,options)
+  const responseJson = await response.json()
+  if(response.status != 200){
+    if (responseJson.error_code == 21332) {
+      //token失效
+      dispatch(logoutAction())
+      throw new APIError(responseJson.error, responseJson.error_code, responseJson)
+    }
+    throw new APIError(responseJson.error, responseJson.error_code, responseJson)
+  }
+  return responseJson;
 }

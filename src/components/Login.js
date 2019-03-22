@@ -1,5 +1,6 @@
 import { React, Component } from 'react'
-import { WebView,View,Dimensions } from "react-native"
+// import { View,Dimensions } from "react-native"
+import { WebView } from 'react-native-webview'
 import { connect } from 'react-redux'
 import { getAuthURL,getCode } from '../api/index'
 import { loginAction } from '../actions/loginAction'
@@ -9,7 +10,8 @@ import Toast from 'react-native-root-toast'
 class Login extends Component {
     constructor(props) {
         super(props);
-        this.times = this.props.times
+        this.times = this.props.times;
+        this.onNavigationStateChange = this.onNavigationStateChange.bind(this);
     }
     onNavigationStateChange = (navState) => {
         let code = getCode(navState);
@@ -40,10 +42,10 @@ class Login extends Component {
     render() {
         return(
             <WebView 
-            ref = {(ref) =>{this.WebView = ref}}
+            // ref = {(ref) =>{this.WebView = ref}}
             source ={{uri: getAuthURL()}}
             startInLoadingState = {true}
-            onNavigationStateChange = {this.onNavigationStateChange.bind(this)}
+            onNavigationStateChange = {this.onNavigationStateChange}
             />
         )
     }

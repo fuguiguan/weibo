@@ -2,14 +2,16 @@
  * @Author: fuguiguan
  * @Date: 2019-03-03 15:22:24
  * @Last Modified by: fuguiguan
- * @Last Modified time: 2019-03-19 10:49:54
+ * @Last Modified time: 2019-04-03 16:13:54
  */
 import React from 'react';
-import { createAppContainer, createBottomTabNavigator, createStackNavigator } from 'react-navigation';
+import { createAppContainer, createBottomTabNavigator, } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Home from './src/components/Home';
-import Mine from './src/components/Mine';
-import Rank from './src/components/Rank';
+import MsgIcon from 'react-native-vector-icons/FontAwesome'
+import Home from './src/components/Home/Home';
+import Mine from './src/components/Mine/Mine';
+import Rank from './src/components/Search/Rank';
+import Message from './src/components/Message/Message'
 
 /**
  * 导航栏路由配置
@@ -33,6 +35,15 @@ const routeConfig = {
         ),
       }
     },
+    message: {
+      screen: Message,
+      navigationOptions: {
+        tabBarLabel: '消息',
+        tabBarIcon: ({tintColor, focused}) => (
+          <MsgIcon name='envelope-o' size={25} color={focused? 'blue':'#333' }/>
+        ),
+      }
+    },  
     mine: {
       screen: Mine,
       navigationOptions: {
@@ -41,7 +52,7 @@ const routeConfig = {
           <Icon name='md-person' size={25} color={focused? 'blue':'#333' }/>
         ),
       }
-    } 
+    },
   };
 /**
  * 导航栏样式等相关配置

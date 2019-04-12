@@ -1,5 +1,6 @@
 import React,{ Component } from 'react'
 import { View, Text, Image, StyleSheet } from 'react-native'
+import { connect } from 'react-redux'
 class UserInfo extends Component {
     constructor(props) {
         super(props);
@@ -9,7 +10,7 @@ class UserInfo extends Component {
         return(
             <View style={{flexDirection:'column'}}>
                 <View style={styles.containerTop}>
-                    <Image source={require('../assets/images/user.png')} style={styles.image}/>
+                    <Image source={require('../../assets/images/user.png')} style={styles.image}/>
                     <View style={styles.userInfo}>
                         <Text style={styles.userTitle}>超萌的蒙面超人</Text>
                         <Text style={styles.userDesc}>简介：脑壳疼</Text>

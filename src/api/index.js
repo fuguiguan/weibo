@@ -1,12 +1,13 @@
-// import axios from 'axios';
+import axios from 'axios';
 import url from 'url';
 import { logoutAction } from '../actions/loginAction';
 const baseUrl = 'https://api.weibo.com/';
-const redirect_uri = 'https://fuguiguan.cn';
+const redirect_uri = 'http://www.baidu.com';
 const client_id = '3207738322';
 const client_secret = 'ce4d00ccd2710065986ef7fe5ac15c64'
 const oauth2Url = baseUrl + 'oauth2/';
 
+const QS = require('qs');
 /*
 给指定的URL添加请求参数
 */
@@ -66,26 +67,46 @@ export function getCode(navState) {
 /**
  * 获取access_token
  */
-// export function getAccessToken(code) {
+// export function getAccess_token(code) {
 //   let path = oauth2Url + 'access_token';
-//   return axios({
-//     method: 'post',
-//     url: path,
-//     data: {
-//       client_id: client_id,
-//       client_secret: client_secret,
-//       grant_type: 'authorization_code',
-//       code: code,
-//       redirect_uri: redirect_uri
+//   //   return axios({
+//   //   method: 'post',
+//   //   url: path,
+//   //   data: {
+//   //     client_id: client_id,
+//   //     client_secret: client_secret,
+//   //     grant_type: 'authorization_code',
+//   //     code: code,
+//   //     redirect_uri: redirect_uri
+//   //   }
+//   // })
+//   let data = {
+//     client_id: client_id,
+//     client_secret: client_secret,
+//     grant_type: 'authorization_code',
+//     code: code,
+//     redirect_uri: redirect_uri
+// }
+//   return axios.post(path,QS.stringify(data),{
+//     "headers": {
+//       'Content-Type': 'application/json',
 //     }
-//   }).then((res) => {
-//     return Promise.resolve(res.data);
-//   }).catch((err) => {
-//     return Promise.reject(err);
-//   });
+//   }
+//   .then(data => alert(11,data))
+//   .catch(err =>alert(22,err))
+
+//   )
+//   // .then((res) => {
+//   //   // return Promise.resolve(res.data);
+//   //   // alert(1111);
+//   //   return res.data;
+//   // }).catch((err) => {
+//   //   // return Promise.reject(err);
+//   //   return err;
+//   // });
 // }
 
-export function access_token(code) {
+export function getAccess_token(code) {
   let path = oauth2Url + 'access_token'
   let url = getUrlWithParams(path, {
     client_id: client_id,
@@ -101,27 +122,27 @@ export function access_token(code) {
 /**
  * 查询用户access_token的授权相关信息，包括授权时间，过期时间和scope权限。
  */
-// export function getUserTokenInfo(access_token) {
-//   let path = oauth2Url + 'get_token_info';
-//   return axios({
-//     method: 'post',
-//     url: path,
-//     data: {
-//       access_token: access_token
-//     }
-//   }).then((res) => {
-//     return Promise.resolve(res.data);
-//   }).catch((err) => {
-//     return Promise.reject(err);
-//   });
-// }
-export function get_token_info(token) {
-  let path = oauth2Url + 'get_token_info'
-  let url = getUrlWithParams(path,{
-    access_token: token
-  })
-  return sendPostRequest(url, {})
+export function get_token_info(access_token) {
+  let path = oauth2Url + 'get_token_info';
+  return axios({
+    method: 'post',
+    url: path,
+    data: {
+      access_token: access_token
+    }
+  }).then((res) => {
+    return Promise.resolve(res.data);
+  }).catch((err) => {
+    return Promise.reject(err);
+  });
 }
+// export function get_token_info(token) {
+//   let path = oauth2Url + 'get_token_info'
+//   let url = getUrlWithParams(path,{
+//     access_token: token
+//   })
+//   return sendPostRequest(url, {})
+// }
 
 
 /**--------------------用户相关信息--------------------- */
@@ -195,13 +216,13 @@ class APIError extends Error {
 async function request(url,options) {
   const response = await fetch(url,options)
   const responseJson = await response.json()
-  if(response.status != 200){
-    if (responseJson.error_code == 21332) {
-      //token失效
-      dispatch(logoutAction())
-      throw new APIError(responseJson.error, responseJson.error_code, responseJson)
-    }
-    throw new APIError(responseJson.error, responseJson.error_code, responseJson)
-  }
+  // if(response.status != 200){
+  //   if (responseJson.error_code == 21332) {
+  //     //token失效
+  //     dispatch(logoutAction())
+  //     throw new APIError(responseJson.error, responseJson.error_code, responseJson)
+  //   }
+  //   throw new APIError(responseJson.error, responseJson.error_code, responseJson)
+  // }
   return responseJson;
 }

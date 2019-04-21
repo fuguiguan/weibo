@@ -15,7 +15,7 @@ class Home extends Component {
         )
     };
     render() {
-        if(!this.props.logined){
+        if(this.props.logined){
             return <Home_Logined />
         }else {
             return (

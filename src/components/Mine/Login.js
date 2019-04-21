@@ -17,8 +17,9 @@ class Login extends Component {
     
     onNavigationStateChange = (navState) => {
         let code = getCode(navState);
-        if(code){
+        if(code && this.times==1){
             this.props.login(code)
+            this.times++
         }
     }
 

@@ -2,7 +2,7 @@
  * @Author: fuguiguan
  * @Date: 2019-03-03 15:22:24
  * @Last Modified by: fuguiguan
- * @Last Modified time: 2019-04-03 16:13:54
+ * @Last Modified time: 2019-04-21 11:43:26
  */
 import React from 'react';
 import { createAppContainer, createBottomTabNavigator, } from 'react-navigation';

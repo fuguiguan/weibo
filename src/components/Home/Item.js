@@ -5,7 +5,7 @@ import {
     StyleSheet,
     Image,
     Dimensions,
-    ScrollView
+    TouchableOpacity
 } from 'react-native'
 const { width,height } = Dimensions.get('window')
 class Item extends Component {
@@ -28,16 +28,22 @@ class Item extends Component {
                 </View>
                 <View style={styles.operate}>
                     <View style={[styles.forward,styles.icon]}>
-                        <Image source={require('../../assets/images/forward_16.png')}/>
-                        <Text style={styles.font}>转发</Text>
+                        <TouchableOpacity style={{justifyContent:'center',alignItems:'center'}}>
+                            <Image source={require('../../assets/images/forward_16.png')}/>
+                            <Text style={styles.font}>转发</Text>
+                        </TouchableOpacity>
                     </View>
                     <View style={[styles.comment,styles.icon]}>
-                        <Image source={require('../../assets/images/comment_16.png')}/>
-                        <Text style={styles.font}>评论</Text>
+                        <TouchableOpacity style={{justifyContent:'center',alignItems:'center'}}>
+                            <Image source={require('../../assets/images/comment_16.png')}/>
+                            <Text style={styles.font}>评论</Text>
+                        </TouchableOpacity>
                     </View>
                     <View style={[styles.like,styles.icon]}>
-                        <Image source={require('../../assets/images/like_16.png')}/>
-                        <Text style={styles.font}>点赞</Text>
+                        <TouchableOpacity style={{justifyContent:'center',alignItems:'center'}}>
+                            <Image source={require('../../assets/images/like_16.png')}/>
+                            <Text style={styles.font}>点赞</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </View>  

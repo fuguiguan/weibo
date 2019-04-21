@@ -3,7 +3,7 @@ import url from 'url';
 import { logoutAction } from '../actions/loginAction';
 const baseUrl = 'https://api.weibo.com/';
 const redirect_uri = 'http://www.baidu.com';
-const client_id = '3207738322';
+const client_id = '3207738322'; // app key
 const client_secret = 'ce4d00ccd2710065986ef7fe5ac15c64'
 const oauth2Url = baseUrl + 'oauth2/';
 
@@ -117,6 +117,19 @@ export function getAccess_token(code) {
   })
   return sendPostRequest(url, {})
 }
+// export function getAccess_token(code) {
+//   let path = oauth2Url + 'access_token'
+//   let url = getUrlWithParams(path, {
+//     client_id: client_id,
+//     client_secret: client_secret,
+//     grant_type: 'authorization_code',
+//     code: code,
+//     redirect_uri: redirect_uri
+//   })
+//   return fetch(url).then(res => res.json())
+//   .then(data => data)
+//   .catch(err => err)
+// }
 
 
 /**
@@ -162,10 +175,11 @@ const userUrl = baseUrl + '2/users/';
 //   });
 // }
 
-export function getUserInfo(access_token) {
+export function getUserInfo(access_token, uid) {
   let path = userUrl + 'show.json'
   return sendGetRequest(path,{
-    access_token
+    access_token,
+    uid
   })
 }
 

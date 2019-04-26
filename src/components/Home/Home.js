@@ -70,7 +70,6 @@ Home.navigationOptions = ({navigation}) => {
 }
 const mapStateToProps = (state,ownProps) => {
     return {
-        times: 1,
         logined: state.status == AppState.LOGINED
     }
 }

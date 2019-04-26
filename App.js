@@ -2,7 +2,7 @@
  * @Author: fuguiguan
  * @Date: 2019-03-03 15:22:24
  * @Last Modified by: fuguiguan
- * @Last Modified time: 2019-04-03 16:22:55
+ * @Last Modified time: 2019-04-26 21:21:09
  */
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View,Image} from 'react-native';
@@ -14,11 +14,7 @@ export default class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <AppContainer
-          // ref={navigatorRef => {
-          //   NGService.setTopLevelNavigator(navigatorRef)
-          // }}
-        />
+        <AppContainer />
       </Provider>
     )
   }

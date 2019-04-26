@@ -2,7 +2,7 @@
  * @Author: fuguiguan
  * @Date: 2019-03-03 15:22:24
  * @Last Modified by: fuguiguan
- * @Last Modified time: 2019-04-26 21:26:35
+ * @Last Modified time: 2019-04-26 21:41:45
  */
 import React from 'react';
 import { createAppContainer, createBottomTabNavigator, createStackNavigator} from 'react-navigation';
@@ -112,18 +112,14 @@ const MainTab = createBottomTabNavigator({
       ),
     }
   }, 
-},{
-  initialRouteName: 'home'
 })
 const AppRootNavigator = createStackNavigator({
   MainTab: {
     screen: MainTab
   },
-  MineStack: {
-    screen: Mine
-  }
-}, {
-  initialRouteName: 'mine'
+  Mine: Mine
+},{
+  initialRouteName: Mine
 })
 const AppContainer = createAppContainer(AppRootNavigator)
 export default AppContainer;

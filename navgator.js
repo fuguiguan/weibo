@@ -2,17 +2,18 @@
  * @Author: fuguiguan
  * @Date: 2019-03-03 15:22:24
  * @Last Modified by: fuguiguan
- * @Last Modified time: 2019-04-26 21:41:45
+ * @Last Modified time: 2019-04-27 17:30:39
  */
 import React from 'react';
-import { createAppContainer, createBottomTabNavigator, createStackNavigator} from 'react-navigation';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { createAppContainer, createBottomTabNavigator, createStackNavigator} from 'react-navigation'
+import Icon from 'react-native-vector-icons/Ionicons'
 import MsgIcon from 'react-native-vector-icons/FontAwesome'
-import Home from './src/components/Home/Home';
-import Mine from './src/components/Mine/Mine';
-import Rank from './src/components/Search/Rank';
+import Home from './src/components/Home/Home'
+import Mine from './src/components/Mine/Mine'
+import Rank from './src/components/Search/Rank'
 import Message from './src/components/Message/Message'
-
+import LoginView from './src/components/Mine/LoginView'
+import Login from './src/components/Mine/Login'
 /**
  * 导航栏路由配置
  */
@@ -75,6 +76,8 @@ import Message from './src/components/Message/Message'
 // );
 // const AppContainer = createAppContainer(appTabNavigator);
 
+
+// tab 主页面
 const MainTab = createBottomTabNavigator({
   home: {
     screen: Home,
@@ -113,13 +116,21 @@ const MainTab = createBottomTabNavigator({
     }
   }, 
 })
+
+// de
+const LoginStack = createStackNavigator({
+  LoginView: LoginView,
+  Login: Login
+})
 const AppRootNavigator = createStackNavigator({
+  Login: Login, //Loading
   MainTab: {
     screen: MainTab
   },
   Mine: Mine
-},{
-  initialRouteName: Mine
+},
+{
+  initialRouteName: 'Mine'
 })
 const AppContainer = createAppContainer(AppRootNavigator)
 export default AppContainer;

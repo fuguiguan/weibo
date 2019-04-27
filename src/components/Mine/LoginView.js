@@ -5,7 +5,7 @@ import Login from './Login'
 import UserInfo from './UserInfo'
 import { connect } from 'react-redux'
 import { AppState } from '../../reducers/loginReducer'
-class Mine_Nologin extends Component {
+class LoginView extends Component {
     constructor(props){
         super(props);
         this.handleClickLogin = this.handleClickLogin.bind(this);
@@ -86,4 +86,4 @@ const mapStateToProps = (state,ownProps) => {
         logined: state.status == AppState.LOGINED
     }
 }
-export default connect(mapStateToProps,null)(Mine_Nologin);
+export default connect(mapStateToProps,null)(LoginView);

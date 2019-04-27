@@ -1,7 +1,7 @@
 import React,{ Component } from 'react'
 import { View, Button,AsyncStorage, Text, Image,StyleSheet} from 'react-native'
 import { createStackNavigator, createSwitchNavigator } from 'react-navigation'
-import Mine_Nologin from './Mine_Nologin';
+// import Mine_Nologin from './LoginView';
 import { AppState } from '../../reducers/loginReducer'
 import { connect } from 'react-redux'
 import Login from './Login'
@@ -15,7 +15,12 @@ class Mine extends Component {
         if(this.props.logined){
             return <UserInfo />
         }else {
-            return <Mine_Nologin />
+            return (
+            <View>
+                {/* <Mine_Nologin /> */}
+                <Button title="go" onPress={()=>this.props.navigation.navigate('MainTab')}/>
+            </View>
+            )
         }
     }
 }
@@ -49,9 +54,9 @@ const MineStyle = StyleSheet.create({
     }
 })
 const MineStack = createStackNavigator({
-    Mine_Nologin: {
-        screen: Mine_Nologin,
-    },
+    // Mine_Nologin: {
+    //     screen: Mine_Nologin,
+    // },
     Mine: Mine,
     Login:{
         screen: Login,
@@ -61,18 +66,18 @@ const MineStack = createStackNavigator({
     },
     UserInfo: UserInfo
 },{
-    initialRouteName: this.logined? 'UserInfo' : 'Mine_Nologin'
+    initialRouteName: 'UserInfo'
 })
 Mine.navigationOptions = ({navigation}) => {
     return {
         headerTitle: <MineHeader />
     }
 }
-Mine_Nologin.navigationOptions = ({navigation}) => {
-    return {
-        headerTitle: <MineHeader />
-    }
-}
+// Mine_Nologin.navigationOptions = ({navigation}) => {
+//     return {
+//         headerTitle: <MineHeader />
+//     }
+// }
 const mapStateToProps = (state,ownProps) => {
     return {
         logined: state.status == AppState.LOGINED

@@ -62,6 +62,8 @@ const headStyle = StyleSheet.create({
 
 const HomeStack = createStackNavigator({
     Home: Home
+},{
+    navigationOptions: {}
 });
 Home.navigationOptions = ({navigation}) => {
     return {

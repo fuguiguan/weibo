@@ -2,7 +2,7 @@
  * @Author: fuguiguan
  * @Date: 2019-03-03 15:22:24
  * @Last Modified by: fuguiguan
- * @Last Modified time: 2019-04-27 17:30:39
+ * @Last Modified time: 2019-04-29 18:43:11
  */
 import React from 'react';
 import { createAppContainer, createBottomTabNavigator, createStackNavigator} from 'react-navigation'
@@ -114,7 +114,7 @@ const MainTab = createBottomTabNavigator({
         <Icon name='md-person' size={25} color={focused? 'blue':'#333' }/>
       ),
     }
-  }, 
+  }
 })
 
 // de
@@ -130,7 +130,10 @@ const AppRootNavigator = createStackNavigator({
   Mine: Mine
 },
 {
-  initialRouteName: 'Mine'
+  initialRouteName: 'MainTab',
+  navigationOptions: {
+    header: null
+  }
 })
 const AppContainer = createAppContainer(AppRootNavigator)
 export default AppContainer;

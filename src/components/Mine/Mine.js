@@ -54,23 +54,14 @@ const MineStyle = StyleSheet.create({
     }
 })
 const MineStack = createStackNavigator({
-    // Mine_Nologin: {
-    //     screen: Mine_Nologin,
-    // },
-    Mine: Mine,
-    Login:{
-        screen: Login,
-        navigationOptions:() => ({
-            title: '授权'
-        })
-    },
     UserInfo: UserInfo
 },{
     initialRouteName: 'UserInfo'
 })
 Mine.navigationOptions = ({navigation}) => {
     return {
-        headerTitle: <MineHeader />
+        headerTitle: <MineHeader />,
+        // header: null
     }
 }
 // Mine_Nologin.navigationOptions = ({navigation}) => {

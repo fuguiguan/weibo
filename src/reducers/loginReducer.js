@@ -14,10 +14,8 @@ const defaultState = {
 export default function loginReducer(state=defaultState, action) {
     switch (action.type) {
         case types.LOGIN_SUECESS: 
-            // return {status: AppState.LOGIN, userInfo: action.userInfo}
             return Object.assign({},state,{status: AppState.LOGINED,userInfo: action.userInfo})
         case types.LOGIN_FAIL:
-            // return {status: AppState.LOGIN_FAILURE, userInfo:null}
             return Object.assign({},state,{status: AppState.LOGIN_FAILURE, userInfo: null})
         default:
             return state

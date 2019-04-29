@@ -20,5 +20,9 @@ class Rank extends Component {
 
 const RankStack = createStackNavigator({
     Rank: Rank
+},{
+    navigationOptions: {
+        header: null
+    }
 })
 export default RankStack;

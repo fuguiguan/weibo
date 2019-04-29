@@ -1,9 +1,11 @@
 import types from './ActionTypes';
 import storage from '../global'
+import NavigationService from '../navigations/NavigationService'
 import { getAccess_token, getUserInfo, get_token_info, getUid, getCode} from '../api/index';
+
+
  function login(code) {
     return (dispatch) => {
-        //发送开始登陆的消息
         console.log('login start')
         dispatch({
             type:types.LOGIN_START
@@ -17,12 +19,15 @@ import { getAccess_token, getUserInfo, get_token_info, getUid, getCode} from '..
                 type: types.LOGIN_SUECESS,
                 userInfo
             })
+            // dispatch(resetAction)
+            NavigationService.navigate('mine')
+            // NavigationService.resetRoute().apply(this)
         })
         .catch((err) => {
             console.log(`登陆失败--${err}`)
             removeUserInfo()
             dispatch({
-                type: types.LOGIN_FAIL
+               type: types.LOGIN_FAIL
             })
         })
     }

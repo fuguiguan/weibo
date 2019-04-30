@@ -7,8 +7,7 @@ export const AppState = {
 }
 const defaultState = {
     userInfo: {},
-    status: AppState.LOADING,
-    
+    status: AppState.LOADING,  
 }
 
 export default function loginReducer(state=defaultState, action) {

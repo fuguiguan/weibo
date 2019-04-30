@@ -20,10 +20,10 @@ function resetRoute(routeName, params = {}) {
     StackActions.reset({
         index: 0,
         actions: [
-            NavigationActions.navigate({ routeName: 'home'})
+            NavigationActions.navigate({ routeName: routeName})
         ]
       })
-      this.props.navigation.dispatch(resetAction)
+      // this.props.navigation.dispatch(resetAction)
 }
 
 // add other navigation functions that you need and export them

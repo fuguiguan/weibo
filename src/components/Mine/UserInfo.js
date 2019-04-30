@@ -1,32 +1,37 @@
 import React,{ Component } from 'react'
 import { View, Text, Image, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
+import { getUserInfo } from '../../api/index'
 class UserInfo extends Component {
     constructor(props) {
         super(props);
+    }
+
+    componentDidMount() {
+
     }
 
     render() {
         return(
             <View style={{flexDirection:'column'}}>
                 <View style={styles.containerTop}>
-                    <Image source={require('../../assets/images/user.png')} style={styles.image}/>
+                    <Image source={{uri: this.props.userInfo.profile_image_url}} style={styles.image}/>
                     <View style={styles.userInfo}>
-                        <Text style={styles.userTitle}>超萌的蒙面超人</Text>
-                        <Text style={styles.userDesc}>简介：脑壳疼</Text>
+                        <Text style={styles.userTitle}>{this.props.userInfo.screen_name}</Text>
+                        <Text style={styles.userDesc}>简介：{this.props.userInfo.description}</Text>
                     </View>
                 </View>
                 <View style={styles.containerData}>
                     <View style={styles.item}>
-                        <Text style={styles.number}>72</Text>
+                        <Text style={styles.number}>{this.props.userInfo.statuses_count}</Text>
                         <Text style={styles.item1}>微博</Text>
                     </View>
                     <View style={styles.item}>
-                        <Text style={styles.number}>34</Text>
+                        <Text style={styles.number}>{this.props.userInfo.friends_count}</Text>
                         <Text style={styles.item1}>关注</Text>
                     </View>
                     <View style={styles.item}>
-                        <Text style={styles.number}>23</Text>
+                        <Text style={styles.number}>{this.props.userInfo.followers_count}</Text>
                         <Text style={styles.item1}>粉丝</Text>
                     </View>
                 </View>
@@ -34,7 +39,12 @@ class UserInfo extends Component {
         )
     }
 }
-export default UserInfo;
+const mapStatetoProps = state => {
+    return {
+        userInfo: state.loginReducer.userInfo
+    }
+}
+export default connect(mapStatetoProps)(UserInfo);
 const styles = StyleSheet.create({
     // 用户头像相关信息
     containerTop: {

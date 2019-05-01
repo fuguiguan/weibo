@@ -2,7 +2,7 @@
  * @Author: fuguiguan
  * @Date: 2019-03-03 15:22:24
  * @Last Modified by: fuguiguan
- * @Last Modified time: 2019-04-26 21:33:17
+ * @Last Modified time: 2019-05-01 19:47:39
  */
 import React from 'react';
 import { createAppContainer, createBottomTabNavigator, createStackNavigator} from 'react-navigation';
@@ -16,9 +16,19 @@ import Message from './src/components/Message/Message'
 /**
  * 导航栏路由配置
  */
+const HomeStack = createStackNavigator({
+  home: {
+    screen: Home
+  }
+},{
+  navigationOptions: {
+    header: null
+  }
+})
+
 const routeConfig = {
     home: {
-      screen: Home,
+      screen: HomeStack,
       navigationOptions: {
         tabBarLabel: '首页',
         tabBarIcon: ({tintColor, focused}) => (

@@ -5,44 +5,53 @@ import {
     StyleSheet,
     Image,
     Dimensions,
-    TouchableOpacity
+    TouchableOpacity,
+    FlatList
 } from 'react-native'
-const { width,height } = Dimensions.get('window')
+import { connect } from 'react-redux'
+// const { width,height } = Dimensions.get('window')
+import selectHome from  '../../actions/homeAction'
+
 class Item extends Component {
     constructor(props) {
         super(props);
+        this.like = this.like.bind(this)
+    }
+     like() {
+        this.props.selectHome(1,10)
+        console.log(this.props.weibos)
     }
     render() {
         return(
-            <View style={{width:width,height:height}}>
+            <View>
                 <View style={styles.containerUser}>
-                    <Image style={styles.image}source={require('../../assets/images/user.png')}/>
+                    <Image style={styles.image}source={{uri:this.props.avatar}}/>
                     <View style={styles.userInfo}>
-                        <Text style={{backgroundColor:'#f0f'}}>发布者昵称</Text>
-                        <Text style={{backgroundColor:'#0f0'}}>发布者相关信息</Text>
+                        <Text>{this.props.name}</Text>
+                        <Text>{this.props.info}</Text>
                     </View>
                 </View>
                 <View style={styles.content}>
-                    <Text style={styles.description}>日日重复同样的事遵循着与昨日相同的惯例若能避开猛烈的欢喜自然不会有悲痛的来袭 ​​​​</Text>
+                    <Text style={styles.description}>{this.props.content}} ​​​​</Text>
                     <Image source={require('../../assets/images/show.png')}></Image>
                 </View>
                 <View style={styles.operate}>
                     <View style={[styles.forward,styles.icon]}>
                         <TouchableOpacity style={{justifyContent:'center',alignItems:'center'}}>
                             <Image source={require('../../assets/images/forward_16.png')}/>
-                            <Text style={styles.font}>转发</Text>
+                            <Text style={styles.font}>{this.props.reposts}</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={[styles.comment,styles.icon]}>
                         <TouchableOpacity style={{justifyContent:'center',alignItems:'center'}}>
                             <Image source={require('../../assets/images/comment_16.png')}/>
-                            <Text style={styles.font}>评论</Text>
+                            <Text style={styles.font}>{this.props.comments}</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={[styles.like,styles.icon]}>
-                        <TouchableOpacity style={{justifyContent:'center',alignItems:'center'}}>
+                        <TouchableOpacity style={{justifyContent:'center',alignItems:'center'}} onPress={this.like}>
                             <Image source={require('../../assets/images/like_16.png')}/>
-                            <Text style={styles.font}>点赞</Text>
+                            <Text style={styles.font}>{this.props.likes}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -50,31 +59,45 @@ class Item extends Component {
         )
     }
 }
-export default Item;
+const mapStateToProps = (state,ownProps) => {
+    return {
+        times: 1,
+        // logined: state.status == AppState.LOGINED
+        weibos: state.homeReducer.weibo.statuses
+    }
+}
+
+const mapDispatchToProps = (dispatch,ownProps) => {
+    return {
+        selectHome: (page,count) => dispatch(selectHome(page,count))
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Item);
 
 const styles = StyleSheet.create({
     containerUser: {
         padding: 10,
         flexDirection: 'row',
-        backgroundColor: 'yellow'
+        // backgroundColor: 'yellow'
     },
     image: {
-        width:60,
-        height:60,
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
-        borderBottomLeftRadius: 30,
-        borderBottomRightRadius: 30,
-        backgroundColor: 'red'
+        width:50,
+        height:50,
+        // borderTopLeftRadius: 30,
+        // borderTopRightRadius: 30,
+        // borderBottomLeftRadius: 30,
+        // borderBottomRightRadius: 30,
+        // backgroundColor: 'red'
+        borderRadius: 25
     },
     userInfo: {
-        backgroundColor: '#ccc'
+        // backgroundColor: '#ccc'
     },
     content: {
         padding: 10,
         borderBottomWidth: 1,
         borderBottomColor: '#eee',
-        backgroundColor: 'purple'
+        // backgroundColor: 'purple'
     },
     description: {
         marginBottom:6,

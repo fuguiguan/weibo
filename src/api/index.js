@@ -1,5 +1,6 @@
 import axios from 'axios';
 import url from 'url';
+import store from '../store/index'
 import { logoutAction } from '../actions/loginAction';
 const baseUrl = 'https://api.weibo.com/';
 const redirect_uri = 'http://www.baidu.com';
@@ -192,6 +193,27 @@ export function getUid(access_token) {
     })
 }
 
+//--------------------------------公用数据----------------
+function getCurAccessToken() {
+  return store.getState().loginReducer.userInfo.access_token
+}
+
+function getCurUid() {
+  return store.getState().loginReducer.userInfo.uid
+}
+
+/**
+ * -------------------  微博信息相关  -----------------------------
+ */
+const weiboUrl = baseUrl + '2/statuses/'
+export function getWeibo(page, count) {
+  let path = weiboUrl + 'home_timeline.json'
+  return sendGetRequest(path,{
+    access_token: getCurAccessToken(),
+    page: page,
+    count: count
+  })
+}
 
 
 /**

@@ -1,32 +1,46 @@
 
 import React,{ Component } from 'react';
-import { ScrollView, View, Text, Image, StyleSheet} from 'react-native'
+import { ScrollView, View, Text, Image, StyleSheet,Button,FlatList} from 'react-native'
 import { createStackNavigator } from 'react-navigation'
 import Icon from 'react-native-vector-icons/Ionicons'
 import Item from './Item'
 import Home_Logined from './Home_Logined'
-import { connect } from 'react-redux';
-import { AppState } from '../../reducers/loginReducer';
-class Home extends Component {
-    static navigationOptions = {
-        tabBarlabel: '首页',
-        tabBarIcon: ({ focused, tintColor}) => (
-            <Icon name={focused? 'md-home':'ios-home' } size={16} />
-        )
-    };
-    render() {
-        if(this.props.logined){
-            return <Home_Logined />
-        }else {
-            return (
-                <ScrollView>
-                    <Item />
-                    <Item />    
-                </ScrollView>
-    
-            );
-        }
+import { AppState } from '../../reducers/loginReducer'
+import { connect } from 'react-redux'
+import selectHome from '../../actions/homeAction'
 
+class Home extends Component {
+    constructor(props) {
+        super(props);
+        // this.sourceData=this.props.weibos
+        this.getWeibo = this.getWeibo.bind(this)
+    }
+    render() {
+            return (
+                <View>
+                    <Button title='getWeibo' onPress={this.getWeibo}/>
+                    <FlatList
+                        data={this.props.weibos}
+                        renderItem={({item}) =>{
+                            return <Item 
+                                avatar={item.original_pic}
+                                name={item.user.screen_name}
+                                info={item.source}
+                                content={item.text}
+                                reposts={item.reposts_count}
+                                comments={item.comments_count}
+                                likes={item.attitudes_count}
+                            />
+                        }} />                  
+                </View>
+            );
+    }
+    getWeibo() {
+        this.props.selectHome(1,50)
+        // console.log('fuguiguan')
+    }
+    componentDidMount(){
+        this.props.selectHome(1,50)
     }
 }
 
@@ -34,9 +48,9 @@ class HomeHeader extends Component{
     render() {
         return(
             <View style={headStyle.container}>
-                <Image source={require('../../assets/images/camaro.png')} style={headStyle.img}/>
+                {/* <Image source={require('../../assets/images/camaro.png')} style={headStyle.img}/> */}
                 <Text style={headStyle.text}>动态</Text>
-                <Image source={require('../../assets/images/plus.png')} style={headStyle.img}/>
+                {/* <Image source={require('../../assets/images/plus.png')} style={headStyle.img}/> */}
             </View>
         )
     }
@@ -47,7 +61,7 @@ const headStyle = StyleSheet.create({
         paddingLeft: 10,
         paddingRight: 10,
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'center'
     },
     img: {
         width: 24,
@@ -60,9 +74,6 @@ const headStyle = StyleSheet.create({
     }
 })
 
-const HomeStack = createStackNavigator({
-    Home: Home
-});
 Home.navigationOptions = ({navigation}) => {
     return {
         headerTitle: <HomeHeader />
@@ -71,13 +82,14 @@ Home.navigationOptions = ({navigation}) => {
 const mapStateToProps = (state,ownProps) => {
     return {
         times: 1,
-        logined: state.status == AppState.LOGINED
+        // logined: state.status == AppState.LOGINED
+        weibos: state.homeReducer.weibo.statuses
     }
 }
 
 const mapDispatchToProps = (dispatch,ownProps) => {
     return {
-        // login: (code) => dispatch(loginAction(code))
+        selectHome: (page,count) => dispatch(selectHome(page,count))
     }
 }
-export default connect(mapStateToProps, null)(HomeStack);
+export default connect(mapStateToProps,mapDispatchToProps)(Home);

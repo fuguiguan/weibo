@@ -58,13 +58,14 @@ const styles = StyleSheet.create({
 
     },
     image: {
-        width:80,
-        height:80,
-        borderTopLeftRadius: 40,
-        borderTopRightRadius: 40,
-        borderBottomLeftRadius: 40,
-        borderBottomRightRadius: 40,
-        marginRight:10
+        width: 80,
+        height: 80,
+        // borderTopLeftRadius: 40,
+        // borderTopRightRadius: 40,
+        // borderBottomLeftRadius: 40,
+        // borderBottomRightRadius: 40,
+        // marginRight:10
+        borderRadius: 40
     },
     userInfo: {
         // flex: 2,

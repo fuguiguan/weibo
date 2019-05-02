@@ -19,7 +19,6 @@ import { getAccess_token, getUserInfo, get_token_info, getUid, getCode} from '..
                 type: types.LOGIN_SUECESS,
                 userInfo
             })
-            // dispatch(resetAction)
             NavigationService.navigate('mine')
             // NavigationService.resetRoute().apply(this)
         })

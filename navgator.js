@@ -2,13 +2,14 @@
  * @Author: fuguiguan
  * @Date: 2019-03-03 15:22:24
  * @Last Modified by: fuguiguan
- * @Last Modified time: 2019-05-01 19:47:39
+ * @Last Modified time: 2019-05-02 11:50:59
  */
 import React from 'react';
 import { createAppContainer, createBottomTabNavigator, createStackNavigator} from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MsgIcon from 'react-native-vector-icons/FontAwesome'
 import Home from './src/components/Home/Home';
+import Comment from './src/components/Home/Comment'
 import Mine from './src/components/Mine/Mine';
 import Rank from './src/components/Search/Rank';
 import Message from './src/components/Message/Message'
@@ -19,6 +20,9 @@ import Message from './src/components/Message/Message'
 const HomeStack = createStackNavigator({
   home: {
     screen: Home
+  },
+  comment: {
+    screen: Comment
   }
 },{
   navigationOptions: {

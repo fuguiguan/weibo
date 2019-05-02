@@ -8,12 +8,16 @@ import Home_Logined from './Home_Logined'
 import { AppState } from '../../reducers/loginReducer'
 import { connect } from 'react-redux'
 import selectHome from '../../actions/homeAction'
+import selectComment from '../../actions/commentAction'
+
 
 class Home extends Component {
     constructor(props) {
         super(props);
+        this.times = this.props.times
         // this.sourceData=this.props.weibos
         this.getWeibo = this.getWeibo.bind(this)
+        this.refreshing = this.props.refreshing
     }
     render() {
             return (
@@ -21,15 +25,18 @@ class Home extends Component {
                     <Button title='getWeibo' onPress={this.getWeibo}/>
                     <FlatList
                         data={this.props.weibos}
+                        refreshing={this.refreshing}
+                        onRefresh={this.getWeibo}
                         renderItem={({item}) =>{
                             return <Item 
                                 avatar={item.original_pic}
                                 name={item.user.screen_name}
-                                info={item.source}
+                                info={item.created_at}
                                 content={item.text}
                                 reposts={item.reposts_count}
                                 comments={item.comments_count}
                                 likes={item.attitudes_count}
+                                goComment={this.goComment.bind(this,item.id)}
                             />
                         }} />                  
                 </View>
@@ -37,10 +44,15 @@ class Home extends Component {
     }
     getWeibo() {
         this.props.selectHome(1,50)
-        // console.log('fuguiguan')
+        this.refreshing = false
     }
-    componentDidMount(){
-        this.props.selectHome(1,50)
+    goComment(id) {
+        this.props.navigation.navigate('comment',{
+            id
+        })
+        this.props.selectComment(1,30,id)
+    }
+    componentWillMount(){
     }
 }
 
@@ -81,7 +93,7 @@ Home.navigationOptions = ({navigation}) => {
 }
 const mapStateToProps = (state,ownProps) => {
     return {
-        times: 1,
+        refreshing: true,
         // logined: state.status == AppState.LOGINED
         weibos: state.homeReducer.weibo.statuses
     }
@@ -89,7 +101,8 @@ const mapStateToProps = (state,ownProps) => {
 
 const mapDispatchToProps = (dispatch,ownProps) => {
     return {
-        selectHome: (page,count) => dispatch(selectHome(page,count))
+        selectHome: (page,count) => dispatch(selectHome(page,count)),
+        selectComment: (page,count,id) => dispatch(selectComment(page,count,id))
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Home);

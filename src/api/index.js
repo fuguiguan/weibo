@@ -205,6 +205,7 @@ function getCurUid() {
 /**
  * -------------------  微博信息相关  -----------------------------
  */
+//获取主页微博信息
 const weiboUrl = baseUrl + '2/statuses/'
 export function getWeibo(page, count) {
   let path = weiboUrl + 'home_timeline.json'
@@ -212,6 +213,19 @@ export function getWeibo(page, count) {
     access_token: getCurAccessToken(),
     page: page,
     count: count
+  })
+}
+
+
+//获取评论列表
+const commentsUrl = baseUrl + '2/comments/'
+export function getComment(page, count, id){
+  let path = commentsUrl + 'show.json'
+  return sendGetRequest(path, {
+    access_token: getCurAccessToken(),
+    page,
+    count,
+    id
   })
 }
 

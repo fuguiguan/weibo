@@ -21,6 +21,9 @@ class Item extends Component {
         this.props.selectHome(1,10)
         console.log(this.props.weibos)
     }
+    // componentDidMount() {
+    //     this.props.selectHome(1,30)
+    // }
     render() {
         return(
             <View>
@@ -28,11 +31,11 @@ class Item extends Component {
                     <Image style={styles.image}source={{uri:this.props.avatar}}/>
                     <View style={styles.userInfo}>
                         <Text>{this.props.name}</Text>
-                        <Text>{this.props.info}</Text>
+                        <Text>发布于{this.props.info}</Text>
                     </View>
                 </View>
                 <View style={styles.content}>
-                    <Text style={styles.description}>{this.props.content}} ​​​​</Text>
+                    <Text style={styles.description}>{this.props.content} ​​​​</Text>
                     <Image source={require('../../assets/images/show.png')}></Image>
                 </View>
                 <View style={styles.operate}>
@@ -43,7 +46,7 @@ class Item extends Component {
                         </TouchableOpacity>
                     </View>
                     <View style={[styles.comment,styles.icon]}>
-                        <TouchableOpacity style={{justifyContent:'center',alignItems:'center'}}>
+                        <TouchableOpacity style={{justifyContent:'center',alignItems:'center'}} onPress={this.props.goComment}>
                             <Image source={require('../../assets/images/comment_16.png')}/>
                             <Text style={styles.font}>{this.props.comments}</Text>
                         </TouchableOpacity>

@@ -4,7 +4,8 @@ const types = {
     LOGIN_SUECESS: 'LOGIN_SUCCESS',
     LOGIN_FAIL: 'LOGIN_FAIL',
     LOGOUT: 'LOGOUT',
-    SELECT_HOME: 'SELECT_HOME'
+    SELECT_HOME: 'SELECT_HOME',
+    GO_COMMENT: 'GO_COMMENT'
 };
 
 export default types;

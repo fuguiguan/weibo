@@ -19,7 +19,7 @@ import { getAccess_token, getUserInfo, get_token_info, getUid, getCode} from '..
                 type: types.LOGIN_SUECESS,
                 userInfo
             })
-            NavigationService.navigate('mine')
+            // NavigationService.navigate('MainTab')
             // NavigationService.resetRoute().apply(this)
         })
         .catch((err) => {

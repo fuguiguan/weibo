@@ -1,10 +1,13 @@
 import React,{ Component } from 'react'
-import { View, Text, Image, StyleSheet } from 'react-native'
+import { View, Text, Image, StyleSheet, Button } from 'react-native'
 import { connect } from 'react-redux'
 import { getUserInfo } from '../../api/index'
+import NavigationService from '../../navigations/NavigationService'
+
 class UserInfo extends Component {
     constructor(props) {
         super(props);
+        this.logout = this.logout.bind(this)
     }
 
     componentDidMount() {
@@ -35,8 +38,15 @@ class UserInfo extends Component {
                         <Text style={styles.item1}>粉丝</Text>
                     </View>
                 </View>
+                <View><Button title='退出当前帐号' color='red' onPress={this.logout}/></View>
             </View>
         )
+    }
+    logout() {
+        // alert(this.props)
+        console.log(this.props)
+        NavigationService.navigate('NotLogin')
+        // this.props.navigation.navigate('Mine_Nologin')
     }
 }
 const mapStatetoProps = state => {

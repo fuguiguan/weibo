@@ -2,10 +2,10 @@
  * @Author: fuguiguan
  * @Date: 2019-03-03 15:22:24
  * @Last Modified by: fuguiguan
- * @Last Modified time: 2019-05-02 11:50:59
+ * @Last Modified time: 2019-05-02 21:59:20
  */
 import React from 'react';
-import { createAppContainer, createBottomTabNavigator, createStackNavigator} from 'react-navigation';
+import { createAppContainer, createBottomTabNavigator, createStackNavigator,createSwitchNavigator} from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MsgIcon from 'react-native-vector-icons/FontAwesome'
 import Home from './src/components/Home/Home';
@@ -13,7 +13,9 @@ import Comment from './src/components/Home/Comment'
 import Mine from './src/components/Mine/Mine';
 import Rank from './src/components/Search/Rank';
 import Message from './src/components/Message/Message'
-
+import UserInfo from './src/components/Mine/UserInfo'
+import NotLogin from './src/components/Mine/Mine_Nologin'
+import Login from './src/components/Mine/Login'
 /**
  * 导航栏路由配置
  */
@@ -30,6 +32,23 @@ const HomeStack = createStackNavigator({
   }
 })
 
+const MineStack = createStackNavigator({
+  UserInfo: {
+    screen: UserInfo
+  }
+})
+const NotLoginStack = createStackNavigator({
+  NotLogin: {
+    screen: NotLogin
+  },
+  Login: {
+    screen: Login
+  }
+},{
+  navigationOptions: {
+    header: null
+  }
+})
 const routeConfig = {
     home: {
       screen: HomeStack,
@@ -59,7 +78,7 @@ const routeConfig = {
       }
     },  
     mine: {
-      screen: Mine,
+      screen: MineStack,
       navigationOptions: {
         tabBarLabel: '我的',
         tabBarIcon: ({tintColor, focused}) => (
@@ -87,6 +106,23 @@ const routeConfig = {
 const appTabNavigator = createBottomTabNavigator(
  routeConfig ,BottomTabNavigatorConfig
 );
-const AppContainer = createAppContainer(appTabNavigator);
+
+const rootNavigator = createSwitchNavigator({
+  MainTab: {
+    screen: appTabNavigator
+  },
+  NotLoginStack: {
+    screen: NotLoginStack
+  }
+},{
+  navigationOptions: {
+    header: ({navigation}) =>{
+      let {state:{routes}} = navigation;
+      NavigationService.setRouters(routes, navigation);
+      return null;
+    }
+  }
+})
+const AppContainer = createAppContainer(rootNavigator);
 
 export default AppContainer;

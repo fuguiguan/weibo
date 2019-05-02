@@ -12,7 +12,7 @@ class Mine extends Component {
         this.logined = this.props.logined
     }
     render() {
-        if(this.props.logined){
+        if(!this.props.logined){
             return <UserInfo />
         }else {
             return <Mine_Nologin />
@@ -61,7 +61,7 @@ const MineStack = createStackNavigator({
     },
     UserInfo: UserInfo
 },{
-    initialRouteName: this.logined? 'UserInfo' : 'Mine_Nologin'
+    initialRouteName: !this.logined? 'UserInfo' : 'Mine_Nologin'
 })
 Mine.navigationOptions = ({navigation}) => {
     return {

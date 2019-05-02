@@ -1,10 +1,20 @@
 import React,{ Component } from 'react';
-import { View, Text, Image,Button,ImageBackground,StyleSheet,TouchableOpacity} from 'react-native';
+import { View, 
+    Text, 
+    Image,
+    Button,
+    ImageBackground,
+    StyleSheet,
+    TouchableOpacity,
+    Dimensions
+} from 'react-native';
 import { createStackNavigator } from 'react-navigation'
 import Login from './Login'
 import UserInfo from './UserInfo'
 import { connect } from 'react-redux'
 import { AppState } from '../../reducers/loginReducer'
+import NavigationService from '../../navigations/NavigationService'
+const { width, height} = Dimensions.get('window')
 class Mine_Nologin extends Component {
     constructor(props){
         super(props);
@@ -34,17 +44,23 @@ class Mine_Nologin extends Component {
         }
     }
     handleClickRegister() {
-        alert('微博api暂未开放注册接口，请转到登录界面进行注册')
-        // this.props.navigation.navigate('UserInfo');
+        // alert('微博api暂未开放注册接口，请转到登录界面进行注册')
+        this.props.navigation.navigate('MainTab');
     }
 
     handleClickLogin() {
+        console.log(this.props)
+        // NavigationService.navigate('Login')
         this.props.navigation.navigate('Login');
 
     }
 }
 const styles = StyleSheet.create({
-    container: {},
+    container: {
+        width: width,
+        height: height,
+        backgroundColor: '#eee'
+    },
     imgContainer: {
         width:'100%',
         height:200,

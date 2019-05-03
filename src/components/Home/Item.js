@@ -6,25 +6,41 @@ import {
     Image,
     Dimensions,
     TouchableOpacity,
-    FlatList
+    FlatList,
+    Modal
 } from 'react-native'
+import ImageViewer from 'react-native-image-zoom-viewer'
 import { connect } from 'react-redux'
 // const { width,height } = Dimensions.get('window')
 import selectHome from  '../../actions/homeAction'
 
+
+// class ImageItem extends Component {
+//     render() {
+//        const urls = this.props.urls
+//        return (
+//         urls.map((url,index) => {
+//             return <Image key={index} source={{uri: url.thumbnail_pic}}/>
+//          })
+//        )
+//       }
+// }
 class Item extends Component {
     constructor(props) {
         super(props);
-        this.like = this.like.bind(this)
+        // this.like = this.like.bind(this)
     }
      like() {
-        this.props.selectHome(1,10)
-        console.log(this.props.weibos)
+        // this.props.selectHome(1,10)
+        // console.log(this.props.weibos)
+        alert('like')
     }
     // componentDidMount() {
     //     this.props.selectHome(1,30)
     // }
     render() {
+        // const urls = this.props.urls
+        // const ImgItem = urls.map( url => <Image source={{uri: url.thumbnail_pic}}/>)
         return(
             <View>
                 <View style={styles.containerUser}>
@@ -37,6 +53,11 @@ class Item extends Component {
                 <View style={styles.content}>
                     <Text style={styles.description}>{this.props.content} ​​​​</Text>
                     <Image source={require('../../assets/images/show.png')}></Image>
+                    {/* <ImageViewer imageUrls={this.props.urls}/> */}
+                    {/* <ImageList urls={this.props.urls}/> */}
+                    {/* <Modal visible={true} transparent={true}>
+                        <ImageViewer imageUrls={this.props.urls}/>
+                    </Modal> */}
                 </View>
                 <View style={styles.operate}>
                     <View style={[styles.forward,styles.icon]}>

@@ -8,12 +8,7 @@ import { getAuthURL,getCode,getAccess_token } from '../../api/index'
 import loginAction from '../../actions/loginAction'
 import { NavigationActions, StackActions } from 'react-navigation'
 import NavigationService from '../../navigations/NavigationService'
-// const resetAction = StackActions.reset({
-//     index: 0,
-//     actions: [
-//         NavigationActions.navigate({ routeName: 'MainTab'})
-//     ]
-//   })
+import selectHome from '../../actions/homeAction';
 
 class Login extends Component {
     constructor(props) {
@@ -27,9 +22,10 @@ class Login extends Component {
         let code = getCode(navState);
         if(code && this.times==1){
             this.props.login(code)
+            this.props.selectHome(1,40)
             this.times++
-            // this.props.navigation.dispatch(resetAction)
             NavigationService.navigate('MainTab')
+           
         }
     }
 
@@ -37,7 +33,6 @@ class Login extends Component {
         return (
             <View style={{width:'100%',height:'100%'}}>
                 <WebView 
-                // ref = {(ref) =>{this.WebView = ref}}
                 source ={{uri: getAuthURL()}}
                 startInLoadingState = {true}
                 onNavigationStateChange = {this.onNavigationStateChange}
@@ -58,7 +53,8 @@ const mapStateToProps = (state,ownProps) => {
 
 const mapDispatchToProps = (dispatch,ownProps) => {
     return {
-        login: (code) => dispatch(loginAction(code))
+        login: (code) => dispatch(loginAction(code)),
+        selectHome: (page,count) => dispatch(selectHome(page,count))
     }
 }
 const LoginController = connect(mapStateToProps,mapDispatchToProps)(Login)

@@ -4,8 +4,11 @@ import store from '../store/index'
 import { logoutAction } from '../actions/loginAction';
 const baseUrl = 'https://api.weibo.com/';
 const redirect_uri = 'http://www.baidu.com';
-const client_id = '3207738322'; // app key
-const client_secret = 'ce4d00ccd2710065986ef7fe5ac15c64'
+// const client_id = '3207738322'; // app key
+// const client_secret = 'ce4d00ccd2710065986ef7fe5ac15c64'
+
+const client_id = '213244275'
+const client_secret= 'e3aef1922f8c7195c080b4b4981f72da'
 const oauth2Url = baseUrl + 'oauth2/';
 
 const QS = require('qs');

@@ -68,11 +68,11 @@ Mine.navigationOptions = ({navigation}) => {
         headerTitle: <MineHeader />
     }
 }
-Mine_Nologin.navigationOptions = ({navigation}) => {
-    return {
-        headerTitle: <MineHeader />
-    }
-}
+// Mine_Nologin.navigationOptions = ({navigation}) => {
+//     return {
+//         headerTitle: <MineHeader />
+//     }
+// }
 const mapStateToProps = (state,ownProps) => {
     return {
         logined: state.status == AppState.LOGINED

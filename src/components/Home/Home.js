@@ -17,22 +17,29 @@ class Home extends Component {
         this.times = this.props.times
         // this.sourceData=this.props.weibos
         this.getWeibo = this.getWeibo.bind(this)
+        this.goToCom = this.goToCom.bind(this)
         this.refreshing = this.props.refreshing
+        // this.pageNum = this.props.pageNum //分页索引，用于请求微博
+        this.pageNum = 1
+        // this.pageSize = this.props.pageSize //每次请求数据的条数
+        this.pageSize = 30
     }
     render() {
             return (
                 <View>
-                    <Button title='getWeibo' onPress={this.getWeibo}/>
+                    {/* <Button title='getWeibo' onPress={this.getWeibo}/> */}
+                    {/* <Button title='评论' onPress={this.goToCom}/> */}
                     <FlatList
                         data={this.props.weibos}
                         refreshing={this.refreshing}
                         onRefresh={this.getWeibo}
                         renderItem={({item}) =>{
                             return <Item 
-                                avatar={item.original_pic}
+                                avatar={item.user.avatar_hd}
                                 name={item.user.screen_name}
                                 info={item.created_at}
                                 content={item.text}
+                                urls={item.pic_urls}
                                 reposts={item.reposts_count}
                                 comments={item.comments_count}
                                 likes={item.attitudes_count}
@@ -43,8 +50,12 @@ class Home extends Component {
             );
     }
     getWeibo() {
-        this.props.selectHome(1,50)
+        this.props.selectHome(this.pageNum, this.pageSize)
         this.refreshing = false
+        this.pageNum++
+    }
+    goToCom(){
+        this.props.navigation.navigate('comment')
     }
     goComment(id) {
         this.props.navigation.navigate('comment',{
@@ -52,7 +63,14 @@ class Home extends Component {
         })
         this.props.selectComment(1,30,id)
     }
-    componentWillMount(){
+    componentDidMount() {
+        setTimeout(() => {
+            this.refreshing = true
+            this.props.selectHome(1,30)
+            if(this.refreshing){
+                this.refreshing = false
+            }
+        }, 2000);
     }
 }
 
@@ -94,7 +112,8 @@ Home.navigationOptions = ({navigation}) => {
 const mapStateToProps = (state,ownProps) => {
     return {
         refreshing: true,
-        // logined: state.status == AppState.LOGINED
+        pageNum: 1,
+        pageSize: 30,
         weibos: state.homeReducer.weibo.statuses
     }
 }

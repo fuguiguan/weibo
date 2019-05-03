@@ -19,8 +19,6 @@ import { getAccess_token, getUserInfo, get_token_info, getUid, getCode} from '..
                 type: types.LOGIN_SUECESS,
                 userInfo
             })
-            // NavigationService.navigate('MainTab')
-            // NavigationService.resetRoute().apply(this)
         })
         .catch((err) => {
             console.log(`登陆失败--${err}`)

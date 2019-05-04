@@ -2,7 +2,7 @@
  * @Author: fuguiguan
  * @Date: 2019-03-03 15:22:24
  * @Last Modified by: fuguiguan
- * @Last Modified time: 2019-05-02 21:59:20
+ * @Last Modified time: 2019-05-04 17:21:39
  */
 import React from 'react';
 import { createAppContainer, createBottomTabNavigator, createStackNavigator,createSwitchNavigator} from 'react-navigation';
@@ -11,7 +11,7 @@ import MsgIcon from 'react-native-vector-icons/FontAwesome'
 import Home from './src/components/Home/Home';
 import Comment from './src/components/Home/Comment'
 import Mine from './src/components/Mine/Mine';
-import Rank from './src/components/Search/Rank';
+import Search from './src/components/Search/Search';
 import Message from './src/components/Message/Message'
 import UserInfo from './src/components/Mine/UserInfo'
 import NotLogin from './src/components/Mine/Mine_Nologin'
@@ -32,9 +32,21 @@ const HomeStack = createStackNavigator({
   }
 })
 
+const SearchStack = createStackNavigator({
+  Search: {
+    screen: Search
+  }
+},{
+  navigationOptions: {
+    header: null
+  }
+})
 const MineStack = createStackNavigator({
   UserInfo: {
     screen: UserInfo
+  }
+},{
+  navigationOptions: {
   }
 })
 const NotLoginStack = createStackNavigator({
@@ -59,8 +71,8 @@ const routeConfig = {
         ),
       }
     },
-    rank: {
-      screen: Rank,
+    search: {
+      screen: SearchStack,
       navigationOptions: {
         tabBarLabel: '搜索',
         tabBarIcon: ({tintColor, focused}) => (

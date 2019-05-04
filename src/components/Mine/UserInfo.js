@@ -1,5 +1,5 @@
 import React,{ Component } from 'react'
-import { View, Text, Image, StyleSheet, Button } from 'react-native'
+import { View, Text, Image, StyleSheet, Button, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { getUserInfo } from '../../api/index'
 import NavigationService from '../../navigations/NavigationService'
@@ -7,6 +7,7 @@ import NavigationService from '../../navigations/NavigationService'
 class UserInfo extends Component {
     constructor(props) {
         super(props);
+        this.clickItem = this.clickItem.bind(this)
         this.logout = this.logout.bind(this)
     }
 
@@ -38,9 +39,51 @@ class UserInfo extends Component {
                         <Text style={styles.item1}>粉丝</Text>
                     </View>
                 </View>
+                <View style={styles.items}>
+                    <View style={styles.itemTop}>
+                        <TouchableOpacity style={[styles.myAlbum,styles.item]} onPress={this.clickItem}>
+                            <Image style={styles.itemImg} source={require('../../assets/images/mine/album.png')}/>
+                            <Text>我的相册</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[styles.myStory,styles.item]} onPress={this.clickItem}>
+                            <Image style={styles.itemImg} source={require('../../assets/images/mine/story.png')}/>
+                            <Text>我的故事</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[styles.myLike,styles.item]} onPress={this.clickItem}>
+                            <Image style={styles.itemImg} source={require('../../assets/images/mine/like.png')}/>
+                            <Text>我的赞</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[styles.fans,styles.item]} onPress={this.clickItem}>
+                            <Image style={styles.itemImg} source={require('../../assets/images/mine/fans.png')}/>
+                            <Text>粉丝服务</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.itemBottom}>
+                        <TouchableOpacity style={[styles.wallet,styles.item]} onPress={this.clickItem}>
+                            <Image style={styles.itemImg} source={require('../../assets/images/mine/wallet.png')}/>
+                            <Text>微博钱包</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[styles.optimal,,styles.item]} onPress={this.clickItem}>
+                            <Image style={styles.itemImg} source={require('../../assets/images/mine/optimal.png')}/>
+                            <Text>微博优选</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[styles.headline,styles.item]} onPress={this.clickItem}>
+                            <Image style={styles.itemImg} source={require('../../assets/images/mine/headline.png')}/>
+                            <Text>粉丝头条</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[styles.service,styles.item]} onPress={this.clickItem}>
+                            <Image style={styles.itemImg} source={require('../../assets/images/mine/service.png')}/>
+                            <Text>客服中心</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
                 <View><Button title='退出当前帐号' color='red' onPress={this.logout}/></View>
             </View>
         )
+    }
+
+    clickItem() {
+        alert('微博暂未开通此权限...')
     }
     logout() {
         // alert(this.props)
@@ -49,9 +92,15 @@ class UserInfo extends Component {
         // this.props.navigation.navigate('Mine_Nologin')
     }
 }
+
 const mapStatetoProps = state => {
     return {
         userInfo: state.loginReducer.userInfo
+    }
+}
+UserInfo.navigationOptions = ({navigation}) => {
+    return {
+        headerTitle: <Text>我</Text>
     }
 }
 export default connect(mapStatetoProps)(UserInfo);
@@ -104,6 +153,27 @@ const styles = StyleSheet.create({
     },
     item1: {
         color:'#666'
+    },
+    items: {
+        marginTop: 20,
+        height: 400
+    },
+    item:{
+        flex: 1,
+        alignItems: 'center'
+    },
+    itemImg: {
+        width: 40,
+        height: 40,
+        marginBottom: 10
+    },
+    itemTop: {
+        flexDirection: 'row'
+    },
+    itemBottom: {
+        marginTop: 20,
+        flexDirection: 'row'
     }
+    
     
 })

@@ -29,6 +29,7 @@ class Item extends Component {
     constructor(props) {
         super(props);
         // this.like = this.like.bind(this)
+        this.urls = this.props.urls
     }
      like() {
         // this.props.selectHome(1,10)
@@ -40,11 +41,11 @@ class Item extends Component {
     // }
     render() {
         // const urls = this.props.urls
-        // const ImgItem = urls.map( url => <Image source={{uri: url.thumbnail_pic}}/>)
+        const ImgItem = this.urls.map( url => <Image source={{uri: url.thumbnail_pic}}/>)
         return(
             <View>
                 <View style={styles.containerUser}>
-                    <Image style={styles.image}source={{uri:this.props.avatar}}/>
+                    <Image style={styles.image} source={{uri:this.props.avatar}}/>
                     <View style={styles.userInfo}>
                         <Text>{this.props.name}</Text>
                         <Text>发布于{this.props.info}</Text>
@@ -52,7 +53,10 @@ class Item extends Component {
                 </View>
                 <View style={styles.content}>
                     <Text style={styles.description}>{this.props.content} ​​​​</Text>
-                    <Image source={require('../../assets/images/show.png')}></Image>
+                    <View>
+                        {this.urls.map(url=><Image source={{uri: url.thumbnail_pic}}/>)}
+                    </View>
+                    {/* <Image source={require('../../assets/images/show.png')}></Image> */}
                     {/* <ImageViewer imageUrls={this.props.urls}/> */}
                     {/* <ImageList urls={this.props.urls}/> */}
                     {/* <Modal visible={true} transparent={true}>
@@ -73,7 +77,7 @@ class Item extends Component {
                         </TouchableOpacity>
                     </View>
                     <View style={[styles.like,styles.icon]}>
-                        <TouchableOpacity style={{justifyContent:'center',alignItems:'center'}} onPress={this.like}>
+                        <TouchableOpacity style={{justifyContent:'center',alignItems:'center'}} >
                             <Image source={require('../../assets/images/like_16.png')}/>
                             <Text style={styles.font}>{this.props.likes}</Text>
                         </TouchableOpacity>

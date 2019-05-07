@@ -2,7 +2,7 @@
  * @Author: fuguiguan
  * @Date: 2019-03-03 15:22:24
  * @Last Modified by: fuguiguan
- * @Last Modified time: 2019-05-04 17:21:39
+ * @Last Modified time: 2019-05-06 18:50:22
  */
 import React from 'react';
 import { createAppContainer, createBottomTabNavigator, createStackNavigator,createSwitchNavigator} from 'react-navigation';
@@ -127,6 +127,7 @@ const rootNavigator = createSwitchNavigator({
     screen: NotLoginStack
   }
 },{
+  initialRouteName: 'NotLoginStack',
   navigationOptions: {
     header: ({navigation}) =>{
       let {state:{routes}} = navigation;

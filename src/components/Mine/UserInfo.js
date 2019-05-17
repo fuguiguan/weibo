@@ -98,9 +98,22 @@ const mapStatetoProps = state => {
         userInfo: state.loginReducer.userInfo
     }
 }
+
+class UserHeader extends Component{
+    render() {
+        return(
+            <View style={styles.headerContainer}>
+                {/* <Image source={require('../../assets/images/camaro.png')} style={headStyle.img}/> */}
+                <Text style={styles.headerText}>我</Text>
+                {/* <Image source={require('../../assets/images/plus.png')} style={headStyle.img}/> */}
+            </View>
+        )
+    }
+}
+
 UserInfo.navigationOptions = ({navigation}) => {
     return {
-        headerTitle: <Text>我</Text>
+        headerTitle: <UserHeader />
     }
 }
 export default connect(mapStatetoProps)(UserInfo);
@@ -156,7 +169,7 @@ const styles = StyleSheet.create({
     },
     items: {
         marginTop: 20,
-        height: 400
+        height: 300
     },
     item:{
         flex: 1,
@@ -173,6 +186,19 @@ const styles = StyleSheet.create({
     itemBottom: {
         marginTop: 20,
         flexDirection: 'row'
+    },
+    headerContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    headerText: {
+        flex: 1,
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#000000',
+        textAlign: 'center'
     }
     
     

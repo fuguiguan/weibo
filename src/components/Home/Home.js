@@ -1,11 +1,7 @@
 
 import React,{ Component } from 'react';
-import { ScrollView, View, Text, Image, StyleSheet,Button,FlatList} from 'react-native'
-import { createStackNavigator } from 'react-navigation'
-import Icon from 'react-native-vector-icons/Ionicons'
+import {  View, Text, StyleSheet,FlatList} from 'react-native'
 import Item from './Item'
-import Home_Logined from './Home_Logined'
-import { AppState } from '../../reducers/loginReducer'
 import { connect } from 'react-redux'
 import selectHome from '../../actions/homeAction'
 import selectComment from '../../actions/commentAction'
@@ -17,6 +13,7 @@ class Home extends Component {
         this.times = this.props.times
         // this.sourceData=this.props.weibos
         this.getWeibo = this.getWeibo.bind(this)
+        this.handleEndReached = this.handleEndReached.bind(this)
         this.goToCom = this.goToCom.bind(this)
         this.refreshing = this.props.refreshing
         // this.pageNum = this.props.pageNum //分页索引，用于请求微博
@@ -27,12 +24,11 @@ class Home extends Component {
     render() {
             return (
                 <View>
-                    {/* <Button title='getWeibo' onPress={this.getWeibo}/> */}
-                    {/* <Button title='评论' onPress={this.goToCom}/> */}
                     <FlatList
                         data={this.props.weibos}
                         refreshing={this.refreshing}
                         onRefresh={this.getWeibo}
+                        onEndReached={this.handleEndReached}
                         renderItem={({item}) =>{
                             return <Item 
                                 avatar={item.user.avatar_hd}
@@ -53,6 +49,9 @@ class Home extends Component {
         this.props.selectHome(this.pageNum, this.pageSize)
         this.refreshing = false
         this.pageNum++
+    }
+    handleEndReached() {
+        alert('end')
     }
     goToCom(){
         this.props.navigation.navigate('comment')
@@ -78,9 +77,7 @@ class HomeHeader extends Component{
     render() {
         return(
             <View style={headStyle.container}>
-                {/* <Image source={require('../../assets/images/camaro.png')} style={headStyle.img}/> */}
                 <Text style={headStyle.text}>动态</Text>
-                {/* <Image source={require('../../assets/images/plus.png')} style={headStyle.img}/> */}
             </View>
         )
     }

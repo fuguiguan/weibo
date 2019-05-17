@@ -22,18 +22,31 @@ class Search extends Component {
         return (
             <View style={styles.container}>
                 <TextInput style={styles.textInput} 
-                    placeholder='大家都在搜：'
+                    placeholder='大家都在搜：nba季后赛'
                 />
-                <Icon name='ios-search' size={24}/>
+                <Icon style={styles.icon} name='ios-search' size={24}/>
             </View>
         );
     }
 }
-Search.navigationOptions = ({navigation}) => {
-    return {
-        headerTitle: <Text>我</Text>
+class SearchHeader extends Component{
+    render() {
+        return(
+            <View style={styles.headerContainer}>
+                {/* <Image source={require('../../assets/images/camaro.png')} style={headStyle.img}/> */}
+                <Text style={styles.headerText}>搜索</Text>
+                {/* <Image source={require('../../assets/images/plus.png')} style={headStyle.img}/> */}
+            </View>
+        )
     }
 }
+
+Search.navigationOptions = ({navigation}) => {
+    return {
+        headerTitle: <SearchHeader />
+    }
+}
+
 // const RankStack = createStackNavigator({
 //     Search: Search
 // })
@@ -44,14 +57,27 @@ const styles = StyleSheet.create({
     },
     icon: {
         position: 'absolute',
-        right: 40
+        left: 40
     },
     textInput: {
         flex: 1,
         height: 40,
-        backgroundColor: '#eee',
-        paddingLeft: 10,
+        backgroundColor: '#fee',
+        paddingLeft: 60,
         paddingRight: 10,
+
+    },
+    headerContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    headerText: {
+        flex: 1,
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#000000',
+        textAlign: 'center'
     }
 })
 export default Search;

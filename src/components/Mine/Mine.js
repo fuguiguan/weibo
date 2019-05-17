@@ -1,6 +1,6 @@
 import React,{ Component } from 'react'
-import { View, Button,AsyncStorage, Text, Image,StyleSheet} from 'react-native'
-import { createStackNavigator, createSwitchNavigator } from 'react-navigation'
+import { View, Text, Image,StyleSheet} from 'react-native'
+import { createStackNavigator } from 'react-navigation'
 import Mine_Nologin from './Mine_Nologin';
 import { AppState } from '../../reducers/loginReducer'
 import { connect } from 'react-redux'
@@ -68,11 +68,6 @@ Mine.navigationOptions = ({navigation}) => {
         headerTitle: <MineHeader />
     }
 }
-// Mine_Nologin.navigationOptions = ({navigation}) => {
-//     return {
-//         headerTitle: <MineHeader />
-//     }
-// }
 const mapStateToProps = (state,ownProps) => {
     return {
         logined: state.status == AppState.LOGINED

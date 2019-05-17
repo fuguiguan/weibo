@@ -2,15 +2,16 @@
  * @Author: fuguiguan
  * @Date: 2019-03-03 15:22:24
  * @Last Modified by: fuguiguan
- * @Last Modified time: 2019-05-06 18:50:22
+ * @Last Modified time: 2019-05-15 12:16:33
  */
 import React from 'react';
+import { connect } from 'react-redux'
+import { AppState } from './src/reducers/loginReducer'
 import { createAppContainer, createBottomTabNavigator, createStackNavigator,createSwitchNavigator} from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MsgIcon from 'react-native-vector-icons/FontAwesome'
 import Home from './src/components/Home/Home';
 import Comment from './src/components/Home/Comment'
-import Mine from './src/components/Mine/Mine';
 import Search from './src/components/Search/Search';
 import Message from './src/components/Message/Message'
 import UserInfo from './src/components/Mine/UserInfo'
@@ -127,7 +128,7 @@ const rootNavigator = createSwitchNavigator({
     screen: NotLoginStack
   }
 },{
-  initialRouteName: 'NotLoginStack',
+  initialRouteName: this.isLogined ? 'MainTab' : 'NotLoginStack',
   navigationOptions: {
     header: ({navigation}) =>{
       let {state:{routes}} = navigation;
@@ -138,4 +139,10 @@ const rootNavigator = createSwitchNavigator({
 })
 const AppContainer = createAppContainer(rootNavigator);
 
+const mapStateToProps = (state) => {
+  return {
+    isLogined: state.loginReducer.status == AppState.LOGINED 
+  }
+}
+// export default connect(mapStateToProps)(AppContainer);
 export default AppContainer;

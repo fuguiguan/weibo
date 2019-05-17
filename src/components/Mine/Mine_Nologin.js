@@ -2,18 +2,14 @@ import React,{ Component } from 'react';
 import { View, 
     Text, 
     Image,
-    Button,
     ImageBackground,
     StyleSheet,
     TouchableOpacity,
     Dimensions
 } from 'react-native';
-import { createStackNavigator } from 'react-navigation'
-import Login from './Login'
 import UserInfo from './UserInfo'
 import { connect } from 'react-redux'
 import { AppState } from '../../reducers/loginReducer'
-import NavigationService from '../../navigations/NavigationService'
 const { width, height} = Dimensions.get('window')
 class Mine_Nologin extends Component {
     constructor(props){
@@ -50,7 +46,6 @@ class Mine_Nologin extends Component {
 
     handleClickLogin() {
         console.log(this.props)
-        // NavigationService.navigate('Login')
         this.props.navigation.navigate('Login');
 
     }
@@ -89,12 +84,22 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
     },
     register: {
+        fontSize: 24,
+        // color: '#f0f',
         width: 80,
-        height: 30
+        height: 30,
+        textAlign: 'center',
+        // backgroundColor: '#ddd',
+        borderRadius: 10
     },
     login: {
+        fontSize: 24,
+        // color: 'green',
         width: 80,
-        height: 30
+        height: 30,
+        textAlign: 'center',
+        // backgroundColor: '#ccc',
+        borderRadius: 10
     },
 })
 const mapStateToProps = (state,ownProps) => {

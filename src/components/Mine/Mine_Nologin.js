@@ -10,6 +10,7 @@ import { View,
 import UserInfo from './UserInfo'
 import { connect } from 'react-redux'
 import { AppState } from '../../reducers/loginReducer'
+import { Button } from 'react-native-elements'
 const { width, height} = Dimensions.get('window')
 class Mine_Nologin extends Component {
     constructor(props){
@@ -28,12 +29,14 @@ class Mine_Nologin extends Component {
                     </ImageBackground>
                     <Text style={styles.text}>登录后，你的微博信息和个人资料会显示在这里,展示给别人看</Text>
                     <View style={styles.logContainer}>
-                    <TouchableOpacity onPress={this.handleClickRegister}>
+                    {/* <TouchableOpacity onPress={this.handleClickRegister}>
                         <Image source={require('../../assets/images/register.png')} style={styles.register}/>   
                     </TouchableOpacity>
                     <TouchableOpacity onPress={this.handleClickLogin}>
                         <Image source={require('../../assets/images/login.png')} style={styles.login}/>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
+                    <Button title='    注册    ' onPress={this.handleClickRegister} style={styles.register}/>
+                    <Button title='    登录    ' onPress={this.handleClickLogin} style={styles.login}/>
                     </View>
                 </View>
             );

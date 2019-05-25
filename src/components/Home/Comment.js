@@ -21,22 +21,17 @@ class Comment extends Component {
         const id = navigation.getParam(id) // 拿到路由传过来的id
         // this.getComment = this.getComment.bind(this,id)
         this.refreshing = true
-        this.data = [
-            {name:'傅贵观',text:'其实，我一直都在你身后，就差你一个回头。'},
-            {name:'四大石窟',text:'我不知道该说什么，我只是突然在这一刻，很想你。'},
-            {name:'扫地',text:'谁又是谁的伊人，谁又是谁的永恒？谁又走进了谁的世界，谁又淡出了谁的心房？当彼此的默契永驻在遥远的梦境里，那盈盈的泪光，可照出伊人的模样？那一曲仰天长啸，那一首壮怀激烈，怎教人：“莫等闲，白了少年头，空悲切！”'},
-            {name:'去皮口袋',text:'日夜思念的明月映入眼帘慌忙的寻找黑夜的一边月光浸透了大地的脸'},
-            {name:'小那你',text:'凝视着今晚的月亮，心中交集百感钟爱的人不多，月夜风景又如何'},
-            {name:'head 机',text:'借着茫茫的月色抒发伤感月夜美，愚人不知又如何'},
-        ]
     }
+
+     _keyExtractor = (item) => item.id
+
     render() {
         return(
             <View style={styles.commentWrap}>
                 <Button title='评论' onPress={this.doComment}/>
                     <FlatList
                         data={this.props.comments}
-                        // data={this.data}
+                        keyExtractor={this._keyExtractor}
                         renderItem={({item}) =>{
                             return (
                                 <View>
@@ -49,7 +44,6 @@ class Comment extends Component {
                             </View>
                             )
                         }} />
-                <Button title='评论' onPress={this.doComment}/>    
             </View>  
         )
     }

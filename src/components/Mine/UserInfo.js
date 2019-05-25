@@ -1,5 +1,11 @@
 import React,{ Component } from 'react'
-import { View, Text, Image, StyleSheet, Button, TouchableOpacity } from 'react-native'
+import { 
+    View, 
+    Text, 
+    Image, 
+    StyleSheet, 
+    Button, 
+    TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { getUserInfo } from '../../api/index'
 import NavigationService from '../../navigations/NavigationService'
@@ -9,6 +15,7 @@ class UserInfo extends Component {
         super(props);
         this.clickItem = this.clickItem.bind(this)
         this.logout = this.logout.bind(this)
+        this.goMyWeibo = this.goMyWeibo.bind(this)
     }
 
     componentDidMount() {
@@ -26,10 +33,10 @@ class UserInfo extends Component {
                     </View>
                 </View>
                 <View style={styles.containerData}>
-                    <View style={styles.item}>
+                    <TouchableOpacity style={styles.item} onPress={this.goMyWeibo}>
                         <Text style={styles.number}>{this.props.userInfo.statuses_count}</Text>
                         <Text style={styles.item1}>微博</Text>
-                    </View>
+                    </TouchableOpacity>
                     <View style={styles.item}>
                         <Text style={styles.number}>{this.props.userInfo.friends_count}</Text>
                         <Text style={styles.item1}>关注</Text>
@@ -88,8 +95,11 @@ class UserInfo extends Component {
     logout() {
         // alert(this.props)
         console.log(this.props)
-        NavigationService.navigate('NotLogin')
+        NavigationService.navigate('NotLoginStack')
         // this.props.navigation.navigate('Mine_Nologin')
+    }
+    goMyWeibo() {
+        NavigationService.navigate('MyWeiBo')
     }
 }
 

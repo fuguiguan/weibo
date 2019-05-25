@@ -10,7 +10,6 @@ import { getAccess_token, getUserInfo, get_token_info, getUid, getCode} from '..
         dispatch({
             type:types.LOGIN_START
         })
- 
         fetchUserInfo(code)
         .then((userInfo) => {
             console.log(`登陆成功---:${userInfo}`)
@@ -64,7 +63,7 @@ async function removeTokenInfo() {
     }
 }
 
-async function saveUserInfo(userInfo) { // 单纯的userInfo信息
+async function saveUserInfo(userInfo) { 
     try {
         storage.save({
             key:'userInfo',

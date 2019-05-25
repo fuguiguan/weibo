@@ -3,7 +3,8 @@ import {
     View, 
     Text,
     TextInput,
-    StyleSheet
+    StyleSheet,
+    KeyboardAvoidingView
 } from 'react-native';
 import { createStackNavigator } from 'react-navigation'
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -20,12 +21,15 @@ class Search extends Component {
     };
     render() {
         return (
-            <View style={styles.container}>
-                <TextInput style={styles.textInput} 
-                    placeholder='大家都在搜：nba季后赛'
-                />
-                <Icon style={styles.icon} name='ios-search' size={24}/>
-            </View>
+            <KeyboardAvoidingView>
+                <View style={styles.container}>
+                    <TextInput style={styles.textInput} 
+                        placeholder='大家都在搜：nba季后赛'
+                        onChangeText={(text) => this.setState({text})}
+                    />
+                    <Icon style={styles.icon} name='ios-search' size={24}/>
+                </View>
+            </KeyboardAvoidingView>
         );
     }
 }

@@ -11,8 +11,8 @@ import {
 } from 'react-native'
 import ImageViewer from 'react-native-image-zoom-viewer'
 import { connect } from 'react-redux'
-// const { width,height } = Dimensions.get('window')
 import selectHome from  '../../actions/homeAction'
+import NavigationService from '../../navigations/NavigationService'
 
 
 // class ImageItem extends Component {
@@ -40,8 +40,6 @@ class Item extends Component {
     //     this.props.selectHome(1,30)
     // }
     render() {
-        // const urls = this.props.urls
-        const ImgItem = this.urls.map( url => <Image source={{uri: url.thumbnail_pic}}/>)
         return(
             <View>
                 <View style={styles.containerUser}>
@@ -53,15 +51,15 @@ class Item extends Component {
                 </View>
                 <View style={styles.content}>
                     <Text style={styles.description}>{this.props.content} ​​​​</Text>
-                    <View>
-                        {this.urls.map(url=><Image source={{uri: url.thumbnail_pic}}/>)}
+                    <View style={styles.imgContainer}>
+                        {this.urls.map(url=>{
+                           return(
+                            <TouchableOpacity onPress={this.handlePicClick.bind(this,url)}>
+                                <Image style={styles.imgItem} source={{uri: url.thumbnail_pic}}/>
+                            </TouchableOpacity>  
+                           ) 
+                        })}                     
                     </View>
-                    {/* <Image source={require('../../assets/images/show.png')}></Image> */}
-                    {/* <ImageViewer imageUrls={this.props.urls}/> */}
-                    {/* <ImageList urls={this.props.urls}/> */}
-                    {/* <Modal visible={true} transparent={true}>
-                        <ImageViewer imageUrls={this.props.urls}/>
-                    </Modal> */}
                 </View>
                 <View style={styles.operate}>
                     <View style={[styles.forward,styles.icon]}>
@@ -86,6 +84,13 @@ class Item extends Component {
             </View>  
         )
     }
+
+    handlePicClick(url) {
+        NavigationService.navigate('imgView',{
+            url
+        })
+        console.log(url)
+    }
 }
 const mapStateToProps = (state,ownProps) => {
     return {
@@ -102,6 +107,8 @@ const mapDispatchToProps = (dispatch,ownProps) => {
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Item);
 
+const { width, height } = Dimensions.get('window')
+// let imgWidth = parseInt(width/3)
 const styles = StyleSheet.create({
     containerUser: {
         padding: 10,
@@ -163,6 +170,15 @@ const styles = StyleSheet.create({
     like: {
         alignSelf: 'center',
         // backgroundColor: 'purple'
+    },
+    imgContainer: {
+        flexDirection: 'row',
+        flex: 1
+    },
+    imgItem: {
+         width: width/3,
+         height: height/6,
+         marginLeft: 1
     }
 
 })

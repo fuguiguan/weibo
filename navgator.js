@@ -2,7 +2,7 @@
  * @Author: fuguiguan
  * @Date: 2019-03-03 15:22:24
  * @Last Modified by: fuguiguan
- * @Last Modified time: 2019-05-15 12:16:33
+ * @Last Modified time: 2019-05-23 17:43:04
  */
 import React from 'react';
 import { connect } from 'react-redux'
@@ -17,6 +17,12 @@ import Message from './src/components/Message/Message'
 import UserInfo from './src/components/Mine/UserInfo'
 import NotLogin from './src/components/Mine/Mine_Nologin'
 import Login from './src/components/Mine/Login'
+import storage from './src/global'
+import MyWeiBo from './src/components/Home/Home'
+import imgView from './src/components/Home/ImgView.js'
+import Item from './src/components/Home/Item';
+
+let token = storage.load('access_token')
 /**
  * 导航栏路由配置
  */
@@ -26,6 +32,12 @@ const HomeStack = createStackNavigator({
   },
   comment: {
     screen: Comment
+  },
+  Item: {
+    screen: Item
+  },
+  imgView: {
+    screen: imgView
   }
 },{
   navigationOptions: {
@@ -44,7 +56,10 @@ const SearchStack = createStackNavigator({
 })
 const MineStack = createStackNavigator({
   UserInfo: {
-    screen: UserInfo
+    screen: UserInfo,
+  },
+  MyWeiBo: {
+    screen: MyWeiBo
   }
 },{
   navigationOptions: {
@@ -128,7 +143,7 @@ const rootNavigator = createSwitchNavigator({
     screen: NotLoginStack
   }
 },{
-  initialRouteName: this.isLogined ? 'MainTab' : 'NotLoginStack',
+  initialRouteName: token? 'MainTab':'NotLoginStack',
   navigationOptions: {
     header: ({navigation}) =>{
       let {state:{routes}} = navigation;

@@ -21,6 +21,7 @@ class Home extends Component {
         // this.pageSize = this.props.pageSize //每次请求数据的条数
         this.pageSize = 30
     }
+    _keyExtractor = (item) => item.id
     render() {
             return (
                 <View>
@@ -29,8 +30,10 @@ class Home extends Component {
                         refreshing={this.refreshing}
                         onRefresh={this.getWeibo}
                         onEndReached={this.handleEndReached}
+                        keyExtractor={this._keyExtractor}
                         renderItem={({item}) =>{
                             return <Item 
+                                key={item.id}
                                 avatar={item.user.avatar_hd}
                                 name={item.user.screen_name}
                                 info={item.created_at}
@@ -111,7 +114,8 @@ const mapStateToProps = (state,ownProps) => {
         refreshing: true,
         pageNum: 1,
         pageSize: 30,
-        weibos: state.homeReducer.weibo.statuses
+        weibos: state.homeReducer.weibo.statuses,
+        // myweibos: state.homeReducer.weibo.statuses.fliter(item => item)
     }
 }
 

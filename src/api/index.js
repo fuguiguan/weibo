@@ -2,6 +2,7 @@ import axios from 'axios';
 import url from 'url';
 import store from '../store/index'
 import { logoutAction } from '../actions/loginAction';
+import storage from '../global'
 const baseUrl = 'https://api.weibo.com/';
 const redirect_uri = 'http://www.baidu.com';
 // const client_id = '3207738322'; // app key
@@ -200,6 +201,11 @@ export function getUid(access_token) {
 function getCurAccessToken() {
   return store.getState().loginReducer.userInfo.access_token
 }
+// 从本地获取token
+// function getLocalToken() {
+//   let access_token = storage.load('access_token')
+//   return access_token
+// }
 
 function getCurUid() {
   return store.getState().loginReducer.userInfo.uid

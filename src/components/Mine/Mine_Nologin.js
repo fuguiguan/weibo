@@ -1,10 +1,17 @@
 import React,{ Component } from 'react';
-import { View, Text, Image,Button,ImageBackground,StyleSheet,TouchableOpacity} from 'react-native';
-import { createStackNavigator } from 'react-navigation'
-import Login from './Login'
+import { View, 
+    Text, 
+    Image,
+    ImageBackground,
+    StyleSheet,
+    TouchableOpacity,
+    Dimensions
+} from 'react-native';
 import UserInfo from './UserInfo'
 import { connect } from 'react-redux'
 import { AppState } from '../../reducers/loginReducer'
+import { Button } from 'react-native-elements'
+const { width, height} = Dimensions.get('window')
 class Mine_Nologin extends Component {
     constructor(props){
         super(props);
@@ -22,29 +29,36 @@ class Mine_Nologin extends Component {
                     </ImageBackground>
                     <Text style={styles.text}>登录后，你的微博信息和个人资料会显示在这里,展示给别人看</Text>
                     <View style={styles.logContainer}>
-                    <TouchableOpacity onPress={this.handleClickRegister}>
+                    {/* <TouchableOpacity onPress={this.handleClickRegister}>
                         <Image source={require('../../assets/images/register.png')} style={styles.register}/>   
                     </TouchableOpacity>
                     <TouchableOpacity onPress={this.handleClickLogin}>
                         <Image source={require('../../assets/images/login.png')} style={styles.login}/>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
+                    <Button title='    注册    ' onPress={this.handleClickRegister} style={styles.register}/>
+                    <Button title='    登录    ' onPress={this.handleClickLogin} style={styles.login}/>
                     </View>
                 </View>
             );
         }
     }
     handleClickRegister() {
-        alert('微博api暂未开放注册接口，请转到登录界面进行注册')
-        // this.props.navigation.navigate('UserInfo');
+        // alert('微博api暂未开放注册接口，请转到登录界面进行注册')
+        this.props.navigation.navigate('MainTab');
     }
 
     handleClickLogin() {
+        console.log(this.props)
         this.props.navigation.navigate('Login');
 
     }
 }
 const styles = StyleSheet.create({
-    container: {},
+    container: {
+        width: width,
+        height: height,
+        backgroundColor: '#eee'
+    },
     imgContainer: {
         width:'100%',
         height:200,
@@ -73,12 +87,22 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
     },
     register: {
+        fontSize: 24,
+        // color: '#f0f',
         width: 80,
-        height: 30
+        height: 30,
+        textAlign: 'center',
+        // backgroundColor: '#ddd',
+        borderRadius: 10
     },
     login: {
+        fontSize: 24,
+        // color: 'green',
         width: 80,
-        height: 30
+        height: 30,
+        textAlign: 'center',
+        // backgroundColor: '#ccc',
+        borderRadius: 10
     },
 })
 const mapStateToProps = (state,ownProps) => {

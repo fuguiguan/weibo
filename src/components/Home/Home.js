@@ -1,32 +1,78 @@
 
 import React,{ Component } from 'react';
-import { ScrollView, View, Text, Image, StyleSheet} from 'react-native'
-import { createStackNavigator } from 'react-navigation'
-import Icon from 'react-native-vector-icons/Ionicons'
+import {  View, Text, StyleSheet,FlatList} from 'react-native'
 import Item from './Item'
-import Home_Logined from './Home_Logined'
-import { connect } from 'react-redux';
-import { AppState } from '../../reducers/loginReducer';
-class Home extends Component {
-    static navigationOptions = {
-        tabBarlabel: '首页',
-        tabBarIcon: ({ focused, tintColor}) => (
-            <Icon name={focused? 'md-home':'ios-home' } size={16} />
-        )
-    };
-    render() {
-        if(!this.props.logined){
-            return <Home_Logined />
-        }else {
-            return (
-                <ScrollView>
-                    <Item />
-                    <Item />    
-                </ScrollView>
-    
-            );
-        }
+import { connect } from 'react-redux'
+import selectHome from '../../actions/homeAction'
+import selectComment from '../../actions/commentAction'
 
+
+class Home extends Component {
+    constructor(props) {
+        super(props);
+        this.times = this.props.times
+        // this.sourceData=this.props.weibos
+        this.getWeibo = this.getWeibo.bind(this)
+        this.handleEndReached = this.handleEndReached.bind(this)
+        this.goToCom = this.goToCom.bind(this)
+        this.refreshing = this.props.refreshing
+        // this.pageNum = this.props.pageNum //分页索引，用于请求微博
+        this.pageNum = 1
+        // this.pageSize = this.props.pageSize //每次请求数据的条数
+        this.pageSize = 30
+    }
+    _keyExtractor = (item) => item.id
+    render() {
+            return (
+                <View>
+                    <FlatList
+                        data={this.props.weibos}
+                        refreshing={this.refreshing}
+                        onRefresh={this.getWeibo}
+                        onEndReached={this.handleEndReached}
+                        keyExtractor={this._keyExtractor}
+                        renderItem={({item}) =>{
+                            return <Item 
+                                key={item.id}
+                                avatar={item.user.avatar_hd}
+                                name={item.user.screen_name}
+                                info={item.created_at}
+                                content={item.text}
+                                urls={item.pic_urls}
+                                reposts={item.reposts_count}
+                                comments={item.comments_count}
+                                likes={item.attitudes_count}
+                                goComment={this.goComment.bind(this,item.id)}
+                            />
+                        }} />                  
+                </View>
+            );
+    }
+    getWeibo() {
+        this.props.selectHome(this.pageNum, this.pageSize)
+        this.refreshing = false
+        this.pageNum++
+    }
+    handleEndReached() {
+        alert('end')
+    }
+    goToCom(){
+        this.props.navigation.navigate('comment')
+    }
+    goComment(id) {
+        this.props.navigation.navigate('comment',{
+            id
+        })
+        this.props.selectComment(1,30,id)
+    }
+    componentDidMount() {
+        setTimeout(() => {
+            this.refreshing = true
+            this.props.selectHome(1,30)
+            if(this.refreshing){
+                this.refreshing = false
+            }
+        }, 2000);
     }
 }
 
@@ -34,9 +80,7 @@ class HomeHeader extends Component{
     render() {
         return(
             <View style={headStyle.container}>
-                <Image source={require('../../assets/images/camaro.png')} style={headStyle.img}/>
                 <Text style={headStyle.text}>动态</Text>
-                <Image source={require('../../assets/images/plus.png')} style={headStyle.img}/>
             </View>
         )
     }
@@ -47,7 +91,7 @@ const headStyle = StyleSheet.create({
         paddingLeft: 10,
         paddingRight: 10,
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'center'
     },
     img: {
         width: 24,
@@ -60,9 +104,6 @@ const headStyle = StyleSheet.create({
     }
 })
 
-const HomeStack = createStackNavigator({
-    Home: Home
-});
 Home.navigationOptions = ({navigation}) => {
     return {
         headerTitle: <HomeHeader />
@@ -70,14 +111,18 @@ Home.navigationOptions = ({navigation}) => {
 }
 const mapStateToProps = (state,ownProps) => {
     return {
-        times: 1,
-        logined: state.status == AppState.LOGINED
+        refreshing: true,
+        pageNum: 1,
+        pageSize: 30,
+        weibos: state.homeReducer.weibo.statuses,
+        // myweibos: state.homeReducer.weibo.statuses.fliter(item => item)
     }
 }
 
 const mapDispatchToProps = (dispatch,ownProps) => {
     return {
-        // login: (code) => dispatch(loginAction(code))
+        selectHome: (page,count) => dispatch(selectHome(page,count)),
+        selectComment: (page,count,id) => dispatch(selectComment(page,count,id))
     }
 }
-export default connect(mapStateToProps, null)(HomeStack);
+export default connect(mapStateToProps,mapDispatchToProps)(Home);

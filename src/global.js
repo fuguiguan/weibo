@@ -1,5 +1,5 @@
-import Storage  from 'react-native-storage';
-import { AsyncStorage } from 'react-native';
+import Storage  from 'react-native-storage'
+import AsyncStorage from '@react-native-community/async-storage'
 
 const storage = new Storage({
     size: 1000,
@@ -11,4 +11,11 @@ const storage = new Storage({
     }
 });
 
-global.storage = storage;
+export default storage
+
+
+
+
+
+
+

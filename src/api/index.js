@@ -1,10 +1,15 @@
 import axios from 'axios';
 import url from 'url';
+import store from '../store/index'
 import { logoutAction } from '../actions/loginAction';
+import storage from '../global'
 const baseUrl = 'https://api.weibo.com/';
 const redirect_uri = 'http://www.baidu.com';
-const client_id = '3207738322';
-const client_secret = 'ce4d00ccd2710065986ef7fe5ac15c64'
+// const client_id = '3207738322'; // app key
+// const client_secret = 'ce4d00ccd2710065986ef7fe5ac15c64'
+
+const client_id = '213244275'
+const client_secret= 'e3aef1922f8c7195c080b4b4981f72da'
 const oauth2Url = baseUrl + 'oauth2/';
 
 const QS = require('qs');
@@ -117,6 +122,19 @@ export function getAccess_token(code) {
   })
   return sendPostRequest(url, {})
 }
+// export function getAccess_token(code) {
+//   let path = oauth2Url + 'access_token'
+//   let url = getUrlWithParams(path, {
+//     client_id: client_id,
+//     client_secret: client_secret,
+//     grant_type: 'authorization_code',
+//     code: code,
+//     redirect_uri: redirect_uri
+//   })
+//   return fetch(url).then(res => res.json())
+//   .then(data => data)
+//   .catch(err => err)
+// }
 
 
 /**
@@ -162,10 +180,11 @@ const userUrl = baseUrl + '2/users/';
 //   });
 // }
 
-export function getUserInfo(access_token) {
+export function getUserInfo(access_token, uid) {
   let path = userUrl + 'show.json'
   return sendGetRequest(path,{
-    access_token
+    access_token,
+    uid
   })
 }
 
@@ -178,6 +197,46 @@ export function getUid(access_token) {
     })
 }
 
+//--------------------------------公用数据----------------
+function getCurAccessToken() {
+  return store.getState().loginReducer.userInfo.access_token
+}
+// 从本地获取token
+// function getLocalToken() {
+//   let access_token = storage.load('access_token')
+//   return access_token
+// }
+
+function getCurUid() {
+  return store.getState().loginReducer.userInfo.uid
+}
+
+/**
+ * -------------------  微博信息相关  -----------------------------
+ */
+//获取主页微博信息
+const weiboUrl = baseUrl + '2/statuses/'
+export function getWeibo(page, count) {
+  let path = weiboUrl + 'home_timeline.json'
+  return sendGetRequest(path,{
+    access_token: getCurAccessToken(),
+    page: page,
+    count: count
+  })
+}
+
+
+//获取评论列表
+const commentsUrl = baseUrl + '2/comments/'
+export function getComment(page, count, id){
+  let path = commentsUrl + 'show.json'
+  return sendGetRequest(path, {
+    access_token: getCurAccessToken(),
+    page,
+    count,
+    id
+  })
+}
 
 
 /**

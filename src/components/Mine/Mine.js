@@ -1,6 +1,6 @@
 import React,{ Component } from 'react'
-import { View, Button,AsyncStorage, Text, Image,StyleSheet} from 'react-native'
-import { createStackNavigator, createSwitchNavigator } from 'react-navigation'
+import { View, Text, Image,StyleSheet} from 'react-native'
+import { createStackNavigator } from 'react-navigation'
 import Mine_Nologin from './Mine_Nologin';
 import { AppState } from '../../reducers/loginReducer'
 import { connect } from 'react-redux'
@@ -12,7 +12,7 @@ class Mine extends Component {
         this.logined = this.props.logined
     }
     render() {
-        if(this.props.logined){
+        if(!this.props.logined){
             return <UserInfo />
         }else {
             return <Mine_Nologin />
@@ -61,14 +61,9 @@ const MineStack = createStackNavigator({
     },
     UserInfo: UserInfo
 },{
-    initialRouteName: this.logined? 'UserInfo' : 'Mine_Nologin'
+    initialRouteName: !this.logined? 'UserInfo' : 'Mine_Nologin'
 })
 Mine.navigationOptions = ({navigation}) => {
-    return {
-        headerTitle: <MineHeader />
-    }
-}
-Mine_Nologin.navigationOptions = ({navigation}) => {
     return {
         headerTitle: <MineHeader />
     }

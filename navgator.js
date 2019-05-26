@@ -2,7 +2,7 @@
  * @Author: fuguiguan
  * @Date: 2019-03-03 15:22:24
  * @Last Modified by: fuguiguan
- * @Last Modified time: 2019-05-23 17:43:04
+ * @Last Modified time: 2019-05-26 14:43:14
  */
 import React from 'react';
 import { connect } from 'react-redux'
@@ -14,11 +14,13 @@ import Home from './src/components/Home/Home';
 import Comment from './src/components/Home/Comment'
 import Search from './src/components/Search/Search';
 import Message from './src/components/Message/Message'
+import CommentAtMe from './src/components/Message/CommentAtMe'
+import CommentMsg from './src/components/Message/CommentMsg'
 import UserInfo from './src/components/Mine/UserInfo'
 import NotLogin from './src/components/Mine/Mine_Nologin'
 import Login from './src/components/Mine/Login'
 import storage from './src/global'
-import MyWeiBo from './src/components/Home/Home'
+import MyWeiBo from './src/components/Mine/MyWeibo'
 import imgView from './src/components/Home/ImgView.js'
 import Item from './src/components/Home/Item';
 
@@ -54,6 +56,19 @@ const SearchStack = createStackNavigator({
     header: null
   }
 })
+
+const MessageStack = createStackNavigator({
+  Message: {
+    screen: Message
+  },
+  CommentMsg: {
+    screen: CommentMsg
+  },
+  CommentAtMe: {
+    screen: CommentAtMe
+  }
+})
+
 const MineStack = createStackNavigator({
   UserInfo: {
     screen: UserInfo,
@@ -97,7 +112,7 @@ const routeConfig = {
       }
     },
     message: {
-      screen: Message,
+      screen: MessageStack,
       navigationOptions: {
         tabBarLabel: '消息',
         tabBarIcon: ({tintColor, focused}) => (

@@ -1,8 +1,16 @@
 import React,{ Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity,Image} from 'react-native';
-import { createStackNavigator } from 'react-navigation'
+import { connect } from 'react-redux'
 import Icon from 'react-native-vector-icons/Ionicons'
+import NavigationService from '../../navigations/NavigationService'
+import getCommentAtMeMeAction from '../../actions/getCommentAtMeAction'
+import getCommentAboutMeAction from '../../actions/CommentMsgAction'
 class Message extends Component {
+    constructor(props) {
+        super(props)
+        this.goCommentMsg = this.goCommentMsg.bind(this)
+        this.goCommentAtMe = this.goCommentAtMe.bind(this)
+    }
     static navigationOptions = {
         tabBarlabel: '消息',
         tabBarIcon: ({ focused, tintColor}) => (
@@ -12,14 +20,14 @@ class Message extends Component {
     render() {
         return (
             <View>
-                <TouchableOpacity style={styles.item}>
+                <TouchableOpacity style={styles.item} onPress={this.goCommentAtMe}>
                     <View style={styles.itemLeft}>
                         <Image style={styles.imgLeft} source={require('../../assets/images/message/aite.png')}/>
                         <Text>@我的</Text>
                     </View>
                     <Image style={styles.imgRight} source={require('../../assets/images/message/dayu.png')}/>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.item}>
+                <TouchableOpacity style={styles.item} onPress={this.goCommentMsg}>
                     <View style={styles.itemLeft}>
                         <Image style={styles.imgLeft} source={require('../../assets/images/message/comment.png')}/>
                         <Text>评论</Text>
@@ -36,6 +44,19 @@ class Message extends Component {
             </View>
         );
     }
+
+    goCommentAtMe() {
+        this.props.getCommentAtMe(1,50)
+        NavigationService.navigate('CommentAtMe')
+        console.log('goCommentAtMe')
+    }
+
+    goCommentMsg() {
+        this.props.getCommentMsg(1,50)
+        NavigationService.navigate('CommentMsg')
+        console.log(this.desc)
+    }
+
 }
 class MsgHeader extends Component{
     render() {
@@ -55,10 +76,19 @@ Message.navigationOptions = ({navigation}) => {
     }
 }
 
-const MessageStack = createStackNavigator({
-    Message: Message
-})
-export default MessageStack;
+const mapStateToProps = state => {
+    return {
+        desc: 'fgfg'
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        getCommentMsg: (page,count) => dispatch(getCommentAboutMeAction(page,count)),
+        getCommentAtMe: (page,count) => dispatch(getCommentAtMeMeAction(page,count))
+    }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Message);
 
 const styles = StyleSheet.create({
     item: {

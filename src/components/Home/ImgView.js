@@ -24,11 +24,16 @@ class ImgView extends Component {
 const { width, height } = Dimensions.get('window')
 const styles = StyleSheet.create({
     container:{
-        flex:1
+        width: width,
+        height: height,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#000'
     },
     image: {
+        marginBottom: 100,
         width: width,
-        height: height
+        height: height/1.5
     }
 })
 export default ImgView;

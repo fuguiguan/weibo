@@ -5,11 +5,11 @@ import { logoutAction } from '../actions/loginAction';
 import storage from '../global'
 const baseUrl = 'https://api.weibo.com/';
 const redirect_uri = 'http://www.baidu.com';
-// const client_id = '3207738322'; // app key
-// const client_secret = 'ce4d00ccd2710065986ef7fe5ac15c64'
+const client_id = '3207738322'; // app key
+const client_secret = 'ce4d00ccd2710065986ef7fe5ac15c64'
 
-const client_id = '213244275'
-const client_secret= 'e3aef1922f8c7195c080b4b4981f72da'
+// const client_id = '213244275'
+// const client_secret= 'e3aef1922f8c7195c080b4b4981f72da'
 const oauth2Url = baseUrl + 'oauth2/';
 
 const QS = require('qs');
@@ -225,6 +225,16 @@ export function getWeibo(page, count) {
   })
 }
 
+// 获取本人微博
+const myWeiboUrl = baseUrl + '2/statuses/'
+export function getMyWeibo(page, count) {
+  let path = myWeiboUrl + 'user_timeline.json'
+  return sendGetRequest(path,{
+    access_token: getCurAccessToken(),
+    page: page,
+    count: count
+  })
+}
 
 //获取评论列表
 const commentsUrl = baseUrl + '2/comments/'
@@ -238,6 +248,26 @@ export function getComment(page, count, id){
   })
 }
 
+// 获取与我相关的评论
+const myCommentUrl = baseUrl + '2/comments/'
+export function getCommentAboutMe(page,count) {
+  let path = myCommentUrl + 'timeline.json'
+  return sendGetRequest(path,{
+    access_token: getCurAccessToken(),
+    page,
+    count
+  })
+}
+
+// 获取@我的评论
+export function getCommentAtMe(page,count) {
+  let path = myCommentUrl + 'mentions.json'
+  return sendGetRequest(path,{
+    access_token: getCurAccessToken(),
+    page,
+    count
+  })
+}
 
 /**
  * -------------------  get/post 请求  -----------------------------

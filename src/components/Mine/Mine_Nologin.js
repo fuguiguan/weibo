@@ -35,8 +35,8 @@ class Mine_Nologin extends Component {
                     <TouchableOpacity onPress={this.handleClickLogin}>
                         <Image source={require('../../assets/images/login.png')} style={styles.login}/>
                     </TouchableOpacity> */}
-                    <Button title='    注册    ' onPress={this.handleClickRegister} style={styles.register}/>
-                    <Button title='    登录    ' onPress={this.handleClickLogin} style={styles.login}/>
+                    <Button title='注 册' onPress={this.handleClickRegister} style={styles.register}/>
+                    <Button title='登 录' onPress={this.handleClickLogin} style={styles.login}/>
                     </View>
                 </View>
             );

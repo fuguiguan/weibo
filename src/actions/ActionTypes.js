@@ -5,7 +5,10 @@ const types = {
     LOGIN_FAIL: 'LOGIN_FAIL',
     LOGOUT: 'LOGOUT',
     SELECT_HOME: 'SELECT_HOME',
-    GO_COMMENT: 'GO_COMMENT'
+    GO_COMMENT: 'GO_COMMENT',
+    GET_MY_WEIBO: 'GET_MY_WEIBO',
+    GET_MY_COMMENT: 'GET_MY_COMMENT',
+    GET_COMMENT_AT_ME: 'GET_COMMENT_AT_ME'
 };
 
 export default types;

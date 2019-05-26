@@ -28,7 +28,7 @@ class Comment extends Component {
     render() {
         return(
             <View style={styles.commentWrap}>
-                <Button title='评论' onPress={this.doComment}/>
+                <Button title='写评论' onPress={this.doComment}/>
                     <FlatList
                         data={this.props.comments}
                         keyExtractor={this._keyExtractor}

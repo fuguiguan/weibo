@@ -9,6 +9,7 @@ import {
 import { connect } from 'react-redux'
 import { getUserInfo } from '../../api/index'
 import NavigationService from '../../navigations/NavigationService'
+import getMyWeiboAction from '../../actions/myWeiboAction'
 
 class UserInfo extends Component {
     constructor(props) {
@@ -99,15 +100,22 @@ class UserInfo extends Component {
         // this.props.navigation.navigate('Mine_Nologin')
     }
     goMyWeibo() {
+        this.props.getMyWeibo(1,30)
         NavigationService.navigate('MyWeiBo')
     }
 }
 
-const mapStatetoProps = state => {
+const mapStateToProps = state => {
     return {
         userInfo: state.loginReducer.userInfo
     }
 }
+const mapDispatchToProps = dispatch => {
+    return {
+        getMyWeibo: (page,count) => dispatch(getMyWeiboAction(page,count))
+    }
+}
+
 
 class UserHeader extends Component{
     render() {
@@ -126,7 +134,7 @@ UserInfo.navigationOptions = ({navigation}) => {
         headerTitle: <UserHeader />
     }
 }
-export default connect(mapStatetoProps)(UserInfo);
+export default connect(mapStateToProps, mapDispatchToProps)(UserInfo);
 const styles = StyleSheet.create({
     // 用户头像相关信息
     containerTop: {

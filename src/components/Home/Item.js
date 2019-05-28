@@ -15,30 +15,16 @@ import selectHome from  '../../actions/homeAction'
 import NavigationService from '../../navigations/NavigationService'
 
 
-// class ImageItem extends Component {
-//     render() {
-//        const urls = this.props.urls
-//        return (
-//         urls.map((url,index) => {
-//             return <Image key={index} source={{uri: url.thumbnail_pic}}/>
-//          })
-//        )
-//       }
-// }
 class Item extends Component {
     constructor(props) {
         super(props);
-        // this.like = this.like.bind(this)
         this.urls = this.props.urls
+        this.likeAdd = this.likeAdd.bind(this)
+        this.state = {
+            isLiked: false,
+            likes: this.props.likes
+        }
     }
-     like() {
-        // this.props.selectHome(1,10)
-        // console.log(this.props.weibos)
-        alert('like')
-    }
-    // componentDidMount() {
-    //     this.props.selectHome(1,30)
-    // }
     render() {
         return(
             <View>
@@ -75,14 +61,28 @@ class Item extends Component {
                         </TouchableOpacity>
                     </View>
                     <View style={[styles.like,styles.icon]}>
-                        <TouchableOpacity style={{justifyContent:'center',alignItems:'center'}} >
-                            <Image source={require('../../assets/images/like_16.png')}/>
-                            <Text style={styles.font}>{this.props.likes}</Text>
+                        <TouchableOpacity style={{justifyContent:'center',alignItems:'center'}} onPress={this.likeAdd}>
+                            <Image source={this.state.isLiked? require('../../assets/images/like_actived.png') : require('../../assets/images/like_16.png')}/>
+                            <Text style={styles.font}>{this.state.isLiked? this.props.likes+1 :this.props.likes}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
             </View>  
         )
+    }
+
+    likeAdd() {
+        this.setState(state => {
+            if(this.state.isLiked){
+                return {
+                    isLiked: false
+                }
+            }else{
+                return {
+                    isLiked: true
+               } 
+            }
+        })
     }
 
     handlePicClick(url) {

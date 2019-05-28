@@ -31,9 +31,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#000'
     },
     image: {
-        marginBottom: 100,
+        marginBottom: 50,
         width: width,
-        height: height/1.5
+        height: height*0.8
     }
 })
 export default ImgView;

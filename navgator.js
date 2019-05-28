@@ -2,7 +2,7 @@
  * @Author: fuguiguan
  * @Date: 2019-03-03 15:22:24
  * @Last Modified by: fuguiguan
- * @Last Modified time: 2019-05-26 14:43:14
+ * @Last Modified time: 2019-05-28 17:56:34
  */
 import React from 'react';
 import { connect } from 'react-redux'
@@ -32,14 +32,8 @@ const HomeStack = createStackNavigator({
   home: {
     screen: Home
   },
-  comment: {
-    screen: Comment
-  },
   Item: {
     screen: Item
-  },
-  imgView: {
-    screen: imgView
   }
 },{
   navigationOptions: {
@@ -60,21 +54,12 @@ const SearchStack = createStackNavigator({
 const MessageStack = createStackNavigator({
   Message: {
     screen: Message
-  },
-  CommentMsg: {
-    screen: CommentMsg
-  },
-  CommentAtMe: {
-    screen: CommentAtMe
   }
 })
 
 const MineStack = createStackNavigator({
   UserInfo: {
     screen: UserInfo,
-  },
-  MyWeiBo: {
-    screen: MyWeiBo
   }
 },{
   navigationOptions: {
@@ -150,15 +135,39 @@ const appTabNavigator = createBottomTabNavigator(
  routeConfig ,BottomTabNavigatorConfig
 );
 
-const rootNavigator = createSwitchNavigator({
+const MainStack = createStackNavigator({ // 第二个开始放置二级页面，自动隐藏底部的Tab
   MainTab: {
-    screen: appTabNavigator
+    screen: appTabNavigator,
+    navigationOptions: ({navigation}) => ({header: null})
+  },
+  imgView: {
+    screen: imgView
+  },
+  comment: {
+    screen: Comment
+  },
+  MyWeiBo: {
+    screen: MyWeiBo
+  },
+  CommentMsg: {
+    screen: CommentMsg
+  },
+  CommentAtMe: {
+    screen: CommentAtMe
+  }
+},{
+  initialRouteName: 'MainTab',
+})
+
+const rootNavigator = createSwitchNavigator({
+  MainStack: {
+    screen: MainStack
   },
   NotLoginStack: {
     screen: NotLoginStack
   }
 },{
-  initialRouteName: token? 'MainTab':'NotLoginStack',
+  initialRouteName: token? 'MainStack':'NotLoginStack',
   navigationOptions: {
     header: ({navigation}) =>{
       let {state:{routes}} = navigation;

@@ -36,7 +36,7 @@ class MyWeibo extends Component {
             );
     }
     getMyWeibo() {
-        this.props.getMyWeibos(1,10)
+        this.props.getMyWeibos(1,30)
         this.refreshing = false
     }
     componentDidMount() {

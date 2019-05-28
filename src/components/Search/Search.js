@@ -8,10 +8,12 @@ import {
 } from 'react-native';
 import { createStackNavigator } from 'react-navigation'
 import Icon from 'react-native-vector-icons/Ionicons'
+import NavigationService from '../../navigations/NavigationService'
 class Search extends Component {
     constructor(props) {
         super(props)
         this.state = {}
+        this.handleOnFocused = this.handleOnFocused.bind(this)
     }
     static navigationOptions = {
         tabBarlabel: '关注',
@@ -26,11 +28,16 @@ class Search extends Component {
                     <TextInput style={styles.textInput} 
                         placeholder='大家都在搜：nba季后赛'
                         onChangeText={(text) => this.setState({text})}
+                        onFocus={this.handleOnFocused}
                     />
                     <Icon style={styles.icon} name='ios-search' size={24}/>
                 </View>
             </KeyboardAvoidingView>
         );
+    }
+
+    handleOnFocused() {
+        // NavigationService.navigate('NotLogin')
     }
 }
 class SearchHeader extends Component{

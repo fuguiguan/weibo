@@ -53,6 +53,8 @@ export class CommentItem extends Component {
                     <Text style={styles.name}>{this.props.name}</Text>
                     <Text style={styles.title}>{this.props.text}</Text>
                 </View>
+                <View style={styles.weiboInfo}>
+                </View>
             </View>
         )
     }
@@ -67,7 +69,7 @@ const mapStateToProps = (state,ownProps) => {
 
 const mapDispatchToProps = (dispatch,ownProps) => {
     return {
-        
+        s
     }
 }
 export default connect(mapStateToProps,null)(CommentMsg);
@@ -91,5 +93,8 @@ const styles = StyleSheet.create({
     },
     content: {
         // paddingRight:10
+    },
+    weiboInfo: {
+
     }
 })

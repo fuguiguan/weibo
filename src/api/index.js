@@ -270,6 +270,18 @@ export function getCommentAtMe(page,count) {
 }
 
 /**
+ * -------------------  关系接口  -----------------------------
+ */
+const friendUrl = baseUrl + '2/friendships/'
+export function getFriends() {
+  let path = friendUrl + 'friends.json'
+  return sendGetRequest(path, {
+    access_token: getCurAccessToken(),
+  })
+}
+
+
+/**
  * -------------------  get/post 请求  -----------------------------
  */
 

@@ -8,7 +8,8 @@ const types = {
     GO_COMMENT: 'GO_COMMENT',
     GET_MY_WEIBO: 'GET_MY_WEIBO',
     GET_MY_COMMENT: 'GET_MY_COMMENT',
-    GET_COMMENT_AT_ME: 'GET_COMMENT_AT_ME'
+    GET_COMMENT_AT_ME: 'GET_COMMENT_AT_ME',
+    GET_FRIENDS: 'GET_FRIENDS'
 };
 
 export default types;

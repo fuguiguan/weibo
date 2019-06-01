@@ -1,12 +1,16 @@
 import types from '../actions/ActionTypes'
-export function loginOut() {
+import storage from '../global'
+export default function loginOut() {
     console.log('login out')
     return (dispatch)=>{
         removeUserInfo()
-        .then(()=>{
-            dispatch({
-                type:types.LOGIN_OUT
-            })
+        // .then(()=>{
+        //     dispatch({
+        //         type:types.LOGIN_OUT
+        //     })
+        // })
+        dispatch({
+            type: types.LOGOUT
         })
     }
 }

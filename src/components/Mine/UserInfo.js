@@ -10,6 +10,8 @@ import { connect } from 'react-redux'
 import { getUserInfo } from '../../api/index'
 import NavigationService from '../../navigations/NavigationService'
 import getMyWeiboAction from '../../actions/myWeiboAction'
+import logoutAction from '../../actions/logoutAction'
+import friendsAction from '../../actions/getFriendsAction'
 
 class UserInfo extends Component {
     constructor(props) {
@@ -17,6 +19,8 @@ class UserInfo extends Component {
         this.clickItem = this.clickItem.bind(this)
         this.logout = this.logout.bind(this)
         this.goMyWeibo = this.goMyWeibo.bind(this)
+        this.getFriends = this.getFriends.bind(this)
+        this.getFollows = this.getFollows.bind(this)
     }
 
     componentDidMount() {
@@ -38,14 +42,14 @@ class UserInfo extends Component {
                         <Text style={styles.number}>{this.props.userInfo.statuses_count}</Text>
                         <Text style={styles.item1}>微博</Text>
                     </TouchableOpacity>
-                    <View style={styles.item}>
+                    <TouchableOpacity style={styles.item} onPress={this.getFriends}>
                         <Text style={styles.number}>{this.props.userInfo.friends_count}</Text>
                         <Text style={styles.item1}>关注</Text>
-                    </View>
-                    <View style={styles.item}>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.item} onPress={this.getFollows}>
                         <Text style={styles.number}>{this.props.userInfo.followers_count}</Text>
                         <Text style={styles.item1}>粉丝</Text>
-                    </View>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.items}>
                     <View style={styles.itemTop}>
@@ -90,14 +94,24 @@ class UserInfo extends Component {
         )
     }
 
+
+    getFriends() {
+        alert(this.props.userInfo.friends_count)
+    }
+
+    getFollows() {
+        alert(this.props.userInfo.followers_count)
+    }
+
     clickItem() {
         alert('微博暂未开通此权限...')
+       
     }
     logout() {
-        // alert(this.props)
-        console.log(this.props)
+        // this.props.LOGOUT()
+        console.log(this.props.LOGOUT)
+        this.props.LOGOUT()
         NavigationService.navigate('NotLoginStack')
-        // this.props.navigation.navigate('Mine_Nologin')
     }
     goMyWeibo() {
         this.props.getMyWeibo(1,30)
@@ -112,7 +126,9 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-        getMyWeibo: (page,count) => dispatch(getMyWeiboAction(page,count))
+        getMyWeibo: (page,count) => dispatch(getMyWeiboAction(page,count)),
+        LOGOUT: () => dispatch(logoutAction()),
+        friends: () => dispatch(friendsAction())
     }
 }
 

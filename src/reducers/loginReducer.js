@@ -5,7 +5,7 @@ export const AppState = {
     LOGIN_FAIL: 'LOGIN_FAILURE',
     LOADING: 'LOADING'
 }
-const defaultState = {
+export const defaultState = {
     userInfo: {},
     status: AppState.LOADING,  
 }

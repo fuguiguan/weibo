@@ -87,22 +87,8 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
     },
     register: {
-        fontSize: 24,
-        // color: '#f0f',
-        width: 80,
-        height: 30,
-        textAlign: 'center',
-        // backgroundColor: '#ddd',
-        borderRadius: 10
     },
     login: {
-        fontSize: 24,
-        // color: 'green',
-        width: 80,
-        height: 30,
-        textAlign: 'center',
-        // backgroundColor: '#ccc',
-        borderRadius: 10
     },
 })
 const mapStateToProps = (state,ownProps) => {

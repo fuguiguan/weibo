@@ -54,7 +54,7 @@ class Home extends Component {
         this.pageNum++
     }
     handleEndReached() {
-        alert('end')
+  
     }
     goToCom(){
         this.props.navigation.navigate('comment')

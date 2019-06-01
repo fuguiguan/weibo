@@ -2,7 +2,7 @@
  * @Author: fuguiguan
  * @Date: 2019-03-03 15:22:24
  * @Last Modified by: fuguiguan
- * @Last Modified time: 2019-05-28 17:56:34
+ * @Last Modified time: 2019-05-31 14:34:22
  */
 import React from 'react';
 import { connect } from 'react-redux'
@@ -24,7 +24,9 @@ import MyWeiBo from './src/components/Mine/MyWeibo'
 import imgView from './src/components/Home/ImgView.js'
 import Item from './src/components/Home/Item';
 
-let token = storage.load('access_token')
+let token = storage.load({
+  key: 'access_token'
+})
 /**
  * 导航栏路由配置
  */
@@ -167,7 +169,7 @@ const rootNavigator = createSwitchNavigator({
     screen: NotLoginStack
   }
 },{
-  initialRouteName: token? 'MainStack':'NotLoginStack',
+  initialRouteName: token? 'MainStack' : 'NotLoginStack',
   navigationOptions: {
     header: ({navigation}) =>{
       let {state:{routes}} = navigation;

@@ -28,7 +28,7 @@ class Comment extends Component {
     render() {
         return(
             <View style={styles.commentWrap}>
-                <Button title='写评论' onPress={this.doComment}/>
+                    <Button title='写评论' onPress={this.doComment} style={styles.comment}/>
                     <FlatList
                         data={this.props.comments}
                         keyExtractor={this._keyExtractor}
@@ -41,9 +41,10 @@ class Comment extends Component {
                                         // name={item.name}
                                         text={item.text}
                                     />
-                            </View>
+                                </View>
                             )
                         }} />
+                        
             </View>  
         )
     }
@@ -73,7 +74,7 @@ export class CommentItem extends Component {
                 </View>
                 <View style={styles.content}>
                     <Text style={styles.name}>{this.props.name}</Text>
-                    <Text style={styles.title}>{this.props.text}</Text>
+                    <Text style={styles.text}>{this.props.text}</Text>
                 </View>
             </View>
         )
@@ -115,5 +116,12 @@ const styles = StyleSheet.create({
     },
     content: {
         // paddingRight:10
+    },
+    comment: {
+        position: 'absolute',
+        bottom: 0
+    },
+    text: {
+        width: width * 0.8
     }
 })

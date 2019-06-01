@@ -6,6 +6,7 @@ import commentReducer from './commentReducer'
 import myWeiboReducer from './myWeiboReducer'
 import commentMsgReducer from './commentMsgReducer'
 import commentAtMeReducer from './commentAtMeReducer'
+import friendsReducer from './friendsReducer'
 const rootReducer = combineReducers({
     loginReducer,
     logoutReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
     commentReducer,
     myWeiboReducer,
     commentMsgReducer,
-    commentAtMeReducer
+    commentAtMeReducer,
+    friendsReducer
 });
 export default rootReducer;

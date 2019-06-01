@@ -51,7 +51,7 @@ export class CommentItem extends Component {
                 </View>
                 <View style={styles.content}>
                     <Text style={styles.name}>{this.props.name}</Text>
-                    <Text style={styles.title}>{this.props.text}</Text>
+                    <Text style={styles.text}>{this.props.text}</Text>
                 </View>
                 <View style={styles.weiboInfo}>
                 </View>
@@ -96,5 +96,8 @@ const styles = StyleSheet.create({
     },
     weiboInfo: {
 
+    },
+    text: {
+        width: width * 0.8
     }
 })

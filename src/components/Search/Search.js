@@ -26,9 +26,11 @@ class Search extends Component {
             <KeyboardAvoidingView>
                 <View style={styles.container}>
                     <TextInput style={styles.textInput} 
+                        ref={'input'}
                         placeholder='大家都在搜：nba季后赛'
                         onChangeText={(text) => this.setState({text})}
                         onFocus={this.handleOnFocused}
+                        maxLength={140}
                     />
                     <Icon style={styles.icon} name='ios-search' size={24}/>
                 </View>
@@ -38,6 +40,7 @@ class Search extends Component {
 
     handleOnFocused() {
         // NavigationService.navigate('NotLogin')
+        // this.refs['input'].focus()
     }
 }
 class SearchHeader extends Component{
